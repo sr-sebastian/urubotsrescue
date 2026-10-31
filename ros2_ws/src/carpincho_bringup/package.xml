@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>carpincho_bringup</name>
+  <version>0.1.0</version>
+  <description>Launch files y configuración del robot Carpincho (robot real, sensores, mapeo, operador).</description>
+  <maintainer email="urubots@utec.edu.uy">UruBots</maintainer>
+  <license>MIT</license>
+  <buildtool_depend>ament_cmake</buildtool_depend>
+  <exec_depend>carpincho_description</exec_depend>
+  <exec_depend>carpincho_base</exec_depend>
+  <exec_depend>carpincho_arm</exec_depend>
+  <exec_depend>carpincho_teleop</exec_depend>
+  <exec_depend>carpincho_perception</exec_depend>
+  <exec_depend>carpincho_autonomy</exec_depend>
+  <exec_depend>joy</exec_depend>
+  <exec_depend>pointcloud_to_laserscan</exec_depend>
+  <exec_depend>v4l2_camera</exec_depend>
+  <!-- de fuente (ver docs/05-software/setup-jetson.md): livox_ros_driver2, fast_lio, orbbec_camera -->
+  <export><build_type>ament_cmake</build_type></export>
+</package>

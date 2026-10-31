@@ -1,0 +1,13 @@
+pointcloud_to_laserscan:
+  ros__parameters:
+    target_frame: base_link          # corte horizontal a la altura de los ejes
+    transform_tolerance: 0.05
+    min_height: 0.05                 # m sobre base_link: ignora el piso y rampas suaves
+    max_height: 0.60                 # paredes de los carriles (≈1.2 m de alto)
+    angle_min: -3.14159
+    angle_max: 3.14159
+    angle_increment: 0.0087          # 0.5°
+    scan_time: 0.1
+    range_min: 0.25                  # ignora el propio robot
+    range_max: 15.0
+    use_inf: true

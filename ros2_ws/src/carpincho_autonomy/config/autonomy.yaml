@@ -1,0 +1,15 @@
+lane_traverse:
+  ros__parameters:
+    odom_topic: /Odometry          # FAST-LIO (mucho mejor que la odometría de orugas). Alternativa: /odom
+    lane_length: 4.8               # MEDIR en cada carril (pre-mapear está permitido fuera del laberinto)
+    speed: 0.30
+    slow_speed: 0.15
+    k_lat: 1.5
+    k_head: 2.0
+    max_w: 0.8
+    wall_max: 1.0
+    front_stop: 0.25
+    traverses: 10
+    stuck_time: 4.0
+    max_recoveries: 3
+    end_qr_text: ""                # vacío = cualquier QR cuenta como zona final

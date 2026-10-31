@@ -1,0 +1,21 @@
+# Arranque automático del software del robot al encender el Jetson.
+#   sudo cp carpincho.service /etc/systemd/system/ && sudo systemctl enable --now carpincho
+#   journalctl -u carpincho -f        (ver logs)
+[Unit]
+Description=Carpincho (UruBots) - ROS 2 bringup
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+User=carpincho
+Environment=ROS_DOMAIN_ID=42
+Environment=RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
+Environment=CYCLONEDDS_URI=file:///home/carpincho/ros2_ws/install/carpincho_bringup/share/carpincho_bringup/config/cyclonedds.xml
+ExecStart=/bin/bash -lc "source /opt/ros/humble/setup.bash && source /home/carpincho/ros2_ws/install/setup.bash && ros2 launch carpincho_bringup robot.launch.py"
+Restart=on-failure
+RestartSec=3
+KillSignal=SIGINT
+TimeoutStopSec=10
+
+[Install]
+WantedBy=multi-user.target

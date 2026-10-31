@@ -1,0 +1,6 @@
+# Lleva el brazo a una pose con nombre (ver carpincho_arm/config/poses.yaml).
+string name
+float32 duration              # s (0 = usar la velocidad por defecto)
+---
+bool success
+string message

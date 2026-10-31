@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  CycloneDDS para robot + estación de operador por Wi-Fi.
+  - Sin multicast (los routers Wi-Fi lo manejan mal y satura el aire): peers por unicast.
+  - Exportar en AMBAS máquinas:
+      export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
+      export CYCLONEDDS_URI=file://$HOME/ros2_ws/install/carpincho_bringup/share/carpincho_bringup/config/cyclonedds.xml
+      export ROS_DOMAIN_ID=42
+  - Ajustar las IPs (robot 192.168.8.10, operador 192.168.8.20 por defecto).
+-->
+<CycloneDDS xmlns="https://cdds.io/config">
+  <Domain Id="any">
+    <General>
+      <Interfaces>
+        <NetworkInterface autodetermine="true" priority="default" multicast="false"/>
+      </Interfaces>
+      <AllowMulticast>false</AllowMulticast>
+      <MaxMessageSize>65500B</MaxMessageSize>
+    </General>
+    <Discovery>
+      <ParticipantIndex>auto</ParticipantIndex>
+      <MaxAutoParticipantIndex>60</MaxAutoParticipantIndex>
+      <Peers>
+        <Peer Address="127.0.0.1"/>
+        <Peer Address="192.168.8.10"/>
+        <Peer Address="192.168.8.20"/>
+      </Peers>
+    </Discovery>
+    <Internal>
+      <SocketReceiveBufferSize min="10MB"/>
+      <Watermarks><WhcHigh>500kB</WhcHigh></Watermarks>
+    </Internal>
+  </Domain>
+</CycloneDDS>

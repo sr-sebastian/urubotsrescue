@@ -1,0 +1,2417 @@
+{
+ "robot": "Carpincho",
+ "code": "URB-R1",
+ "generated": "2026-10-31",
+ "summary": {
+  "axle_dist": 400.0,
+  "axle_z": 58.4,
+  "track_pd": 95.5,
+  "body_len": 490.0,
+  "length_tracks": 519.1,
+  "length_flippers_ext": 759.3,
+  "width_total": 414.0,
+  "height_deck": 194.0,
+  "flip_len": 259.3,
+  "y_track_c": 137.5,
+  "y_flip_c": 171.5
+ },
+ "mass_total_kg": 16.84,
+ "cg_mm": [
+  28.0,
+  0.6,
+  112.3
+ ],
+ "groups": {
+  "chasis": "Chasis y estructura",
+  "traccion": "Tren motriz y orugas",
+  "flipper": "Flippers",
+  "brazo": "Brazo manipulador",
+  "electronica": "Electrónica y potencia",
+  "sensores": "Sensores",
+  "referencia": "Componentes comprados (referencia)"
+ },
+ "parts": [
+  {
+   "code": "CH-01",
+   "name": "Placa lateral",
+   "group": "chasis",
+   "group_name": "Chasis y estructura",
+   "material": "Al",
+   "process": "Corte láser/agua Al 5052 4 mm",
+   "qty": 2,
+   "notes": "Espejo para el lado derecho (misma pieza girada).",
+   "bought": false,
+   "bbox_mm": [
+    490.0,
+    4.0,
+    160.0
+   ],
+   "files": {
+    "step": "cad/out/step/CH-01.step",
+    "stl": "cad/out/stl/CH-01.stl",
+    "dxf": "cad/out/dxf/CH-01.dxf"
+   },
+   "mass_g_unit": 740.8,
+   "instances": [
+    {
+     "node": "CH-01_L",
+     "center": [
+      -0.7,
+      117.0,
+      109.9
+     ]
+    },
+    {
+     "node": "CH-01_R",
+     "center": [
+      -0.7,
+      -117.0,
+      109.9
+     ]
+    }
+   ]
+  },
+  {
+   "code": "CH-02",
+   "name": "Placa exterior de oruga",
+   "group": "chasis",
+   "group_name": "Chasis y estructura",
+   "material": "Al",
+   "process": "Corte láser Al 5052 3 mm",
+   "qty": 2,
+   "notes": "",
+   "bought": false,
+   "bbox_mm": [
+    380.3,
+    3.0,
+    82.0
+   ],
+   "files": {
+    "step": "cad/out/step/CH-02.step",
+    "stl": "cad/out/stl/CH-02.stl",
+    "dxf": "cad/out/dxf/CH-02.dxf"
+   },
+   "mass_g_unit": 225.5,
+   "instances": [
+    {
+     "node": "CH-02_L",
+     "center": [
+      -46.6,
+      157.5,
+      71.8
+     ]
+    },
+    {
+     "node": "CH-02_R",
+     "center": [
+      -46.6,
+      -157.5,
+      71.8
+     ]
+    }
+   ]
+  },
+  {
+   "code": "CH-03",
+   "name": "Piso",
+   "group": "chasis",
+   "group_name": "Chasis y estructura",
+   "material": "Al",
+   "process": "Corte láser Al 5052 3 mm",
+   "qty": 1,
+   "notes": "",
+   "bought": false,
+   "bbox_mm": [
+    440.0,
+    229.0,
+    3.0
+   ],
+   "files": {
+    "step": "cad/out/step/CH-03.step",
+    "stl": "cad/out/stl/CH-03.stl",
+    "dxf": "cad/out/dxf/CH-03.dxf"
+   },
+   "mass_g_unit": 812.0,
+   "instances": [
+    {
+     "node": "CH-03",
+     "center": [
+      -0.0,
+      0.0,
+      31.5
+     ]
+    }
+   ]
+  },
+  {
+   "code": "CH-04",
+   "name": "Deck superior",
+   "group": "chasis",
+   "group_name": "Chasis y estructura",
+   "material": "PC",
+   "process": "Policarbonato 4 mm (CNC/láser CO2 no!) o Al 3 mm",
+   "qty": 1,
+   "notes": "El policarbonato NO se corta con láser CO2 (amarillea y es tóxico): router CNC o sierra.",
+   "bought": false,
+   "bbox_mm": [
+    490.0,
+    238.0,
+    4.0
+   ],
+   "files": {
+    "step": "cad/out/step/CH-04.step",
+    "stl": "cad/out/stl/CH-04.stl",
+    "dxf": "cad/out/dxf/CH-04.dxf"
+   },
+   "mass_g_unit": 540.7,
+   "instances": [
+    {
+     "node": "CH-04",
+     "center": [
+      0.8,
+      0.3,
+      192.0
+     ]
+    }
+   ]
+  },
+  {
+   "code": "CH-05",
+   "name": "Mamparo delantero",
+   "group": "chasis",
+   "group_name": "Chasis y estructura",
+   "material": "Al",
+   "process": "Corte láser Al 3 mm",
+   "qty": 1,
+   "notes": "",
+   "bought": false,
+   "bbox_mm": [
+    3.0,
+    229.0,
+    157.0
+   ],
+   "files": {
+    "step": "cad/out/step/CH-05.step",
+    "stl": "cad/out/stl/CH-05.stl",
+    "dxf": "cad/out/dxf/CH-05.dxf"
+   },
+   "mass_g_unit": 267.7,
+   "instances": [
+    {
+     "node": "CH-05",
+     "center": [
+      237.5,
+      -0.0,
+      107.0
+     ]
+    }
+   ]
+  },
+  {
+   "code": "CH-06",
+   "name": "Mamparo trasero (panel de conectores)",
+   "group": "chasis",
+   "group_name": "Chasis y estructura",
+   "material": "Al",
+   "process": "Corte láser Al 3 mm",
+   "qty": 1,
+   "notes": "",
+   "bought": false,
+   "bbox_mm": [
+    3.0,
+    229.0,
+    157.0
+   ],
+   "files": {
+    "step": "cad/out/step/CH-06.step",
+    "stl": "cad/out/stl/CH-06.stl",
+    "dxf": "cad/out/dxf/CH-06.dxf"
+   },
+   "mass_g_unit": 270.2,
+   "instances": [
+    {
+     "node": "CH-06",
+     "center": [
+      -237.5,
+      -0.3,
+      108.3
+     ]
+    }
+   ]
+  },
+  {
+   "code": "CH-07",
+   "name": "Escuadra Al 20x20x2",
+   "group": "chasis",
+   "group_name": "Chasis y estructura",
+   "material": "Al",
+   "process": "Perfil comprado, cortar y agujerear con plantilla",
+   "qty": 4,
+   "notes": "La pieza se modela con la cara contra la placa lateral; ver guía de armado.",
+   "bought": false,
+   "bbox_mm": [
+    410.0,
+    20.0,
+    20.0
+   ],
+   "files": {},
+   "mass_g_unit": 84.1,
+   "instances": [
+    {
+     "node": "CH-07_LB",
+     "center": [
+      0.0,
+      109.3,
+      38.7
+     ]
+    },
+    {
+     "node": "CH-07_RB",
+     "center": [
+      0.0,
+      -109.3,
+      38.7
+     ]
+    },
+    {
+     "node": "CH-07_LT",
+     "center": [
+      -0.0,
+      109.3,
+      184.3
+     ]
+    },
+    {
+     "node": "CH-07_RT",
+     "center": [
+      -0.0,
+      -109.3,
+      184.3
+     ]
+    }
+   ]
+  },
+  {
+   "code": "CH-08",
+   "name": "Separador placa lateral-exterior",
+   "group": "chasis",
+   "group_name": "Chasis y estructura",
+   "material": "Al",
+   "process": "Tubo Al 12x2 cortado o PETG 100%",
+   "qty": 8,
+   "notes": "",
+   "bought": false,
+   "bbox_mm": [
+    12.0,
+    12.0,
+    37.0
+   ],
+   "files": {
+    "step": "cad/out/step/CH-08.step",
+    "stl": "cad/out/stl/CH-08.stl"
+   },
+   "mass_g_unit": 9.0,
+   "instances": [
+    {
+     "node": "CH-08_L",
+     "center": [
+      -150.0,
+      137.5,
+      80.0
+     ]
+    },
+    {
+     "node": "CH-08_R",
+     "center": [
+      -150.0,
+      -137.5,
+      80.0
+     ]
+    },
+    {
+     "node": "CH-08_L_2",
+     "center": [
+      -55.0,
+      137.5,
+      82.0
+     ]
+    },
+    {
+     "node": "CH-08_R_3",
+     "center": [
+      -55.0,
+      -137.5,
+      82.0
+     ]
+    },
+    {
+     "node": "CH-08_L_4",
+     "center": [
+      50.0,
+      137.5,
+      82.0
+     ]
+    },
+    {
+     "node": "CH-08_R_5",
+     "center": [
+      50.0,
+      -137.5,
+      82.0
+     ]
+    },
+    {
+     "node": "CH-08_L_6",
+     "center": [
+      130.0,
+      137.5,
+      80.0
+     ]
+    },
+    {
+     "node": "CH-08_R_7",
+     "center": [
+      130.0,
+      -137.5,
+      80.0
+     ]
+    }
+   ]
+  },
+  {
+   "code": "CH-09",
+   "name": "Asa de transporte",
+   "group": "chasis",
+   "group_name": "Chasis y estructura",
+   "material": "PLA-CF",
+   "process": "Impresión 3D PLA-CF/PETG 100% relleno",
+   "qty": 2,
+   "notes": "Obligatoria por reglamento (asas seguras para mover el robot).",
+   "bought": false,
+   "bbox_mm": [
+    176.0,
+    16.0,
+    53.0
+   ],
+   "files": {
+    "step": "cad/out/step/CH-09.step",
+    "stl": "cad/out/stl/CH-09.stl"
+   },
+   "mass_g_unit": 49.5,
+   "instances": [
+    {
+     "node": "CH-09_0",
+     "center": [
+      -0.0,
+      105.0,
+      231.2
+     ]
+    },
+    {
+     "node": "CH-09_1",
+     "center": [
+      -0.0,
+      -105.0,
+      231.2
+     ]
+    }
+   ]
+  },
+  {
+   "code": "CH-10",
+   "name": "Separador de rodillo",
+   "group": "traccion",
+   "group_name": "Tren motriz y orugas",
+   "material": "PETG",
+   "process": "Impresión 3D PETG 100%",
+   "qty": 6,
+   "notes": "",
+   "bought": false,
+   "bbox_mm": [
+    14.0,
+    14.0,
+    5.0
+   ],
+   "files": {
+    "step": "cad/out/step/CH-10.step",
+    "stl": "cad/out/stl/CH-10.stl"
+   },
+   "mass_g_unit": 0.4,
+   "instances": [
+    {
+     "node": "CH-10_L",
+     "center": [
+      -100.0,
+      121.5,
+      31.8
+     ]
+    },
+    {
+     "node": "CH-10_R",
+     "center": [
+      -100.0,
+      -121.5,
+      31.8
+     ]
+    },
+    {
+     "node": "CH-10_L_2",
+     "center": [
+      -0.0,
+      121.5,
+      31.8
+     ]
+    },
+    {
+     "node": "CH-10_R_3",
+     "center": [
+      -0.0,
+      -121.5,
+      31.8
+     ]
+    },
+    {
+     "node": "CH-10_L_4",
+     "center": [
+      100.0,
+      121.5,
+      31.8
+     ]
+    },
+    {
+     "node": "CH-10_R_5",
+     "center": [
+      100.0,
+      -121.5,
+      31.8
+     ]
+    }
+   ]
+  },
+  {
+   "code": "DT-01",
+   "name": "Polea motriz trasera 60T HTD5M",
+   "group": "traccion",
+   "group_name": "Tren motriz y orugas",
+   "material": "PLA-CF",
+   "process": "Impresión 3D PLA-CF/PETG, 5 perímetros, 50% gyroid. Competencia: Al 60-5M-25 + cubo",
+   "qty": 2,
+   "notes": "Chavetero 4 mm + 2 prisioneros M4 a 90°.",
+   "bought": false,
+   "bbox_mm": [
+    101.2,
+    101.2,
+    31.0
+   ],
+   "files": {
+    "step": "cad/out/step/DT-01.step",
+    "stl": "cad/out/stl/DT-01.stl"
+   },
+   "mass_g_unit": 122.1,
+   "instances": [
+    {
+     "node": "DT-01_L",
+     "center": [
+      -200.1,
+      137.5,
+      58.4
+     ]
+    },
+    {
+     "node": "DT-01_R",
+     "center": [
+      -200.1,
+      -137.5,
+      58.4
+     ]
+    }
+   ]
+  },
+  {
+   "code": "DT-02",
+   "name": "Polea delantera compuesta 60T+60T",
+   "group": "traccion",
+   "group_name": "Tren motriz y orugas",
+   "material": "PLA-CF",
+   "process": "Impresión 3D PLA-CF, 5 perímetros, 50% gyroid",
+   "qty": 2,
+   "notes": "2x rodamiento 6804-2RS. Gira libre sobre el tubo de flipper.",
+   "bought": false,
+   "bbox_mm": [
+    101.2,
+    101.2,
+    65.0
+   ],
+   "files": {
+    "step": "cad/out/step/DT-02.step",
+    "stl": "cad/out/stl/DT-02.stl"
+   },
+   "mass_g_unit": 249.1,
+   "instances": [
+    {
+     "node": "DT-02_L",
+     "center": [
+      200.0,
+      154.5,
+      58.4
+     ]
+    },
+    {
+     "node": "DT-02_R",
+     "center": [
+      200.0,
+      -154.5,
+      58.4
+     ]
+    }
+   ]
+  },
+  {
+   "code": "DT-03",
+   "name": "Rodillo de apoyo ø40",
+   "group": "traccion",
+   "group_name": "Tren motriz y orugas",
+   "material": "PETG",
+   "process": "Impresión 3D PETG, 4 perímetros, 40%",
+   "qty": 6,
+   "notes": "Rodamiento 608-2RS, eje bulón M8.",
+   "bought": false,
+   "bbox_mm": [
+    46.0,
+    46.0,
+    27.0
+   ],
+   "files": {
+    "step": "cad/out/step/DT-03.step",
+    "stl": "cad/out/stl/DT-03.stl"
+   },
+   "mass_g_unit": 21.6,
+   "instances": [
+    {
+     "node": "DT-03_L",
+     "center": [
+      -100.0,
+      137.5,
+      31.8
+     ]
+    },
+    {
+     "node": "DT-03_R",
+     "center": [
+      -100.0,
+      -137.5,
+      31.8
+     ]
+    },
+    {
+     "node": "DT-03_L_2",
+     "center": [
+      -0.0,
+      137.5,
+      31.8
+     ]
+    },
+    {
+     "node": "DT-03_R_3",
+     "center": [
+      -0.0,
+      -137.5,
+      31.8
+     ]
+    },
+    {
+     "node": "DT-03_L_4",
+     "center": [
+      100.0,
+      137.5,
+      31.8
+     ]
+    },
+    {
+     "node": "DT-03_R_5",
+     "center": [
+      100.0,
+      -137.5,
+      31.8
+     ]
+    }
+   ]
+  },
+  {
+   "code": "DT-05",
+   "name": "Taco de oruga (grouser) TPU",
+   "group": "traccion",
+   "group_name": "Tren motriz y orugas",
+   "material": "TPU",
+   "process": "Impresión 3D TPU 95A, 100% relleno",
+   "qty": 206,
+   "notes": "2x55 (orugas) + 2x38 (flippers) + 20 de repuesto",
+   "bought": false,
+   "bbox_mm": [
+    10.0,
+    25.0,
+    8.0
+   ],
+   "files": {
+    "step": "cad/out/step/DT-05.step",
+    "stl": "cad/out/stl/DT-05.stl"
+   },
+   "mass_g_unit": 1.6,
+   "instances": []
+  },
+  {
+   "code": "DT-06",
+   "name": "Polea 20T motor de tracción (HTD5M 15)",
+   "group": "traccion",
+   "group_name": "Tren motriz y orugas",
+   "material": "PLA-CF",
+   "process": "Impresión 3D o Al comercial 20-5M-15",
+   "qty": 2,
+   "notes": "Eje de motor 8 mm con D-flat: prisionero M4.",
+   "bought": false,
+   "bbox_mm": [
+    37.6,
+    37.6,
+    28.0
+   ],
+   "files": {
+    "step": "cad/out/step/DT-06.step",
+    "stl": "cad/out/stl/DT-06.stl"
+   },
+   "mass_g_unit": 11.7,
+   "instances": [
+    {
+     "node": "DT-06_L",
+     "center": [
+      -117.0,
+      92.1,
+      85.0
+     ]
+    },
+    {
+     "node": "DT-06_R",
+     "center": [
+      -52.6,
+      -92.1,
+      85.0
+     ]
+    }
+   ]
+  },
+  {
+   "code": "DT-07",
+   "name": "Polea 30T eje trasero (HTD5M 15)",
+   "group": "traccion",
+   "group_name": "Tren motriz y orugas",
+   "material": "PLA-CF",
+   "process": "Impresión 3D o Al comercial 30-5M-15",
+   "qty": 2,
+   "notes": "",
+   "bought": false,
+   "bbox_mm": [
+    53.5,
+    53.5,
+    28.0
+   ],
+   "files": {
+    "step": "cad/out/step/DT-07.step",
+    "stl": "cad/out/stl/DT-07.stl"
+   },
+   "mass_g_unit": 27.8,
+   "instances": [
+    {
+     "node": "DT-07_L",
+     "center": [
+      -200.0,
+      92.1,
+      58.4
+     ]
+    },
+    {
+     "node": "DT-07_R",
+     "center": [
+      -200.0,
+      -92.1,
+      58.4
+     ]
+    }
+   ]
+  },
+  {
+   "code": "DT-08",
+   "name": "Soporte motor de tracción (tensable)",
+   "group": "traccion",
+   "group_name": "Tren motriz y orugas",
+   "material": "PLA-CF",
+   "process": "Impresión 3D PLA-CF 6 perímetros 60%",
+   "qty": 2,
+   "notes": "",
+   "bought": false,
+   "bbox_mm": [
+    70.0,
+    60.0,
+    92.0
+   ],
+   "files": {
+    "step": "cad/out/step/DT-08.step",
+    "stl": "cad/out/stl/DT-08.stl"
+   },
+   "mass_g_unit": 64.7,
+   "instances": [
+    {
+     "node": "DT-08_L",
+     "center": [
+      -117.0,
+      62.3,
+      62.6
+     ]
+    },
+    {
+     "node": "DT-08_R",
+     "center": [
+      -52.6,
+      -62.3,
+      62.6
+     ]
+    }
+   ]
+  },
+  {
+   "code": "DT-09",
+   "name": "Polea 18T motor de flipper (HTD5M 15)",
+   "group": "flipper",
+   "group_name": "Flippers",
+   "material": "PLA-CF",
+   "process": "Impresión 3D o Al comercial 18-5M-15",
+   "qty": 1,
+   "notes": "",
+   "bought": false,
+   "bbox_mm": [
+    34.4,
+    34.4,
+    28.0
+   ],
+   "files": {
+    "step": "cad/out/step/DT-09.step",
+    "stl": "cad/out/stl/DT-09.stl"
+   },
+   "mass_g_unit": 9.1,
+   "instances": [
+    {
+     "node": "DT-09",
+     "center": [
+      92.7,
+      -92.1,
+      110.0
+     ]
+    }
+   ]
+  },
+  {
+   "code": "DT-10",
+   "name": "Polea 54T tubo de flipper (HTD5M 15)",
+   "group": "flipper",
+   "group_name": "Flippers",
+   "material": "PLA-CF",
+   "process": "Impresión 3D PLA-CF 6 perímetros 60%",
+   "qty": 1,
+   "notes": "Pasador M5 pasante por el tubo (agujero ø5.2).",
+   "bought": false,
+   "bbox_mm": [
+    91.7,
+    91.7,
+    34.0
+   ],
+   "files": {
+    "step": "cad/out/step/DT-10.step",
+    "stl": "cad/out/stl/DT-10.stl"
+   },
+   "mass_g_unit": 89.3,
+   "instances": [
+    {
+     "node": "DT-10",
+     "center": [
+      200.0,
+      -91.6,
+      58.4
+     ]
+    }
+   ]
+  },
+  {
+   "code": "DT-11",
+   "name": "Soporte motor de flipper",
+   "group": "flipper",
+   "group_name": "Flippers",
+   "material": "PLA-CF",
+   "process": "Impresión 3D PLA-CF 6 perímetros 60%",
+   "qty": 1,
+   "notes": "",
+   "bought": false,
+   "bbox_mm": [
+    70.0,
+    60.0,
+    117.0
+   ],
+   "files": {
+    "step": "cad/out/step/DT-11.step",
+    "stl": "cad/out/stl/DT-11.stl"
+   },
+   "mass_g_unit": 79.0,
+   "instances": [
+    {
+     "node": "DT-11",
+     "center": [
+      92.7,
+      -63.5,
+      72.4
+     ]
+    }
+   ]
+  },
+  {
+   "code": "REF-M1",
+   "name": "Motorreductor 775 24V planetario 42mm (tracción)",
+   "group": "referencia",
+   "group_name": "Componentes comprados (referencia)",
+   "material": "motor",
+   "process": "Comprado",
+   "qty": 2,
+   "notes": "",
+   "bought": true,
+   "bbox_mm": [
+    44.5,
+    44.5,
+    167.0
+   ],
+   "files": {},
+   "mass_g_unit": 750.0,
+   "instances": [
+    {
+     "node": "REF-M1_L",
+     "center": [
+      -117.0,
+      3.0,
+      85.0
+     ]
+    },
+    {
+     "node": "REF-M1_R",
+     "center": [
+      -52.6,
+      -3.0,
+      85.0
+     ]
+    }
+   ]
+  },
+  {
+   "code": "REF-M2",
+   "name": "Motorreductor 775 24V planetario 42mm (flipper)",
+   "group": "referencia",
+   "group_name": "Componentes comprados (referencia)",
+   "material": "motor",
+   "process": "Comprado",
+   "qty": 1,
+   "notes": "",
+   "bought": true,
+   "bbox_mm": [
+    44.5,
+    44.5,
+    167.0
+   ],
+   "files": {},
+   "mass_g_unit": 750.0,
+   "instances": [
+    {
+     "node": "REF-M2",
+     "center": [
+      92.7,
+      -3.0,
+      110.0
+     ]
+    }
+   ]
+  },
+  {
+   "code": "REF-B1",
+   "name": "Correa HTD 1100-5M-25 (oruga)",
+   "group": "traccion",
+   "group_name": "Tren motriz y orugas",
+   "material": "belt",
+   "process": "Comprado",
+   "qty": 2,
+   "notes": "",
+   "bought": true,
+   "bbox_mm": [
+    500.8,
+    25.0,
+    100.8
+   ],
+   "files": {},
+   "mass_g_unit": 131.2,
+   "instances": [
+    {
+     "node": "REF-B1_L",
+     "center": [
+      0.0,
+      137.5,
+      58.4
+     ]
+    },
+    {
+     "node": "REF-B1_R",
+     "center": [
+      0.0,
+      -137.5,
+      58.4
+     ]
+    }
+   ]
+  },
+  {
+   "code": "REF-B2",
+   "name": "Tacos montados (oruga principal)",
+   "group": "traccion",
+   "group_name": "Tren motriz y orugas",
+   "material": "TPU",
+   "process": "Ver DT-05",
+   "qty": 2,
+   "notes": "",
+   "bought": true,
+   "bbox_mm": [
+    501.1,
+    25.0,
+    100.9
+   ],
+   "files": {},
+   "mass_g_unit": 91.8,
+   "instances": [
+    {
+     "node": "REF-B2_L",
+     "center": [
+      0.6,
+      137.5,
+      58.5
+     ]
+    },
+    {
+     "node": "REF-B2_R",
+     "center": [
+      0.6,
+      -137.5,
+      58.5
+     ]
+    }
+   ]
+  },
+  {
+   "code": "REF-B3",
+   "name": "Correa HTD 760-5M-25 (flipper)",
+   "group": "flipper",
+   "group_name": "Flippers",
+   "material": "belt",
+   "process": "Comprado",
+   "qty": 2,
+   "notes": "",
+   "bought": true,
+   "bbox_mm": [
+    332.2,
+    25.0,
+    148.8
+   ],
+   "files": {},
+   "mass_g_unit": 90.8,
+   "instances": [
+    {
+     "node": "REF-B3_L",
+     "center": [
+      311.7,
+      171.5,
+      88.3
+     ]
+    },
+    {
+     "node": "REF-B3_R",
+     "center": [
+      311.7,
+      -171.5,
+      88.3
+     ]
+    }
+   ]
+  },
+  {
+   "code": "REF-B4",
+   "name": "Tacos montados (flipper)",
+   "group": "flipper",
+   "group_name": "Flippers",
+   "material": "TPU",
+   "process": "Ver DT-05",
+   "qty": 2,
+   "notes": "",
+   "bought": true,
+   "bbox_mm": [
+    332.7,
+    25.0,
+    149.3
+   ],
+   "files": {},
+   "mass_g_unit": 63.9,
+   "instances": [
+    {
+     "node": "REF-B4_L",
+     "center": [
+      312.2,
+      171.5,
+      88.6
+     ]
+    },
+    {
+     "node": "REF-B4_R",
+     "center": [
+      312.2,
+      -171.5,
+      88.6
+     ]
+    }
+   ]
+  },
+  {
+   "code": "REF-S1",
+   "name": "Eje motriz acero 12 mm (largo según params)",
+   "group": "traccion",
+   "group_name": "Tren motriz y orugas",
+   "material": "steel",
+   "process": "Acero plata 12 mm h7, 2 chaveteros 4x2.5 (tornería)",
+   "qty": 2,
+   "notes": "",
+   "bought": true,
+   "bbox_mm": [
+    12.0,
+    12.0,
+    93.0
+   ],
+   "files": {},
+   "mass_g_unit": 82.6,
+   "instances": [
+    {
+     "node": "REF-S1_L",
+     "center": [
+      -200.0,
+      124.5,
+      58.4
+     ]
+    },
+    {
+     "node": "REF-S1_R",
+     "center": [
+      -200.0,
+      -124.5,
+      58.4
+     ]
+    }
+   ]
+  },
+  {
+   "code": "REF-S2",
+   "name": "Tubo de flipper Al 6061 20x2 x 400",
+   "group": "flipper",
+   "group_name": "Flippers",
+   "material": "Al",
+   "process": "Tubo Al 20x2 cortado a medida, 2 agujeros ø5.2 por extremo",
+   "qty": 1,
+   "notes": "",
+   "bought": true,
+   "bbox_mm": [
+    20.0,
+    20.0,
+    410.0
+   ],
+   "files": {},
+   "mass_g_unit": 347.8,
+   "instances": [
+    {
+     "node": "REF-S2",
+     "center": [
+      200.0,
+      0.0,
+      58.4
+     ]
+    }
+   ]
+  },
+  {
+   "code": "FL-01",
+   "name": "Brazo de flipper",
+   "group": "flipper",
+   "group_name": "Flippers",
+   "material": "Al",
+   "process": "Corte láser/agua Al 6061 5 mm",
+   "qty": 2,
+   "notes": "",
+   "bought": false,
+   "bbox_mm": [
+    321.3,
+    5.0,
+    84.0
+   ],
+   "files": {
+    "step": "cad/out/step/FL-01.step",
+    "stl": "cad/out/stl/FL-01.stl",
+    "dxf": "cad/out/dxf/FL-01.dxf"
+   },
+   "mass_g_unit": 225.6,
+   "instances": [
+    {
+     "node": "FL-01_L",
+     "center": [
+      295.0,
+      192.5,
+      83.9
+     ]
+    },
+    {
+     "node": "FL-01_R",
+     "center": [
+      295.0,
+      -192.5,
+      83.9
+     ]
+    }
+   ]
+  },
+  {
+   "code": "FL-02",
+   "name": "Cubo de flipper",
+   "group": "flipper",
+   "group_name": "Flippers",
+   "material": "Al",
+   "process": "Torno Al 6061 (o PLA-CF 100% para prototipo)",
+   "qty": 2,
+   "notes": "Pasador: bulón M5x80 12.9 a través de cubo y tubo; 4x M5x20 al brazo.",
+   "bought": false,
+   "bbox_mm": [
+    72.0,
+    72.0,
+    12.0
+   ],
+   "files": {
+    "step": "cad/out/step/FL-02.step",
+    "stl": "cad/out/stl/FL-02.stl"
+   },
+   "mass_g_unit": 115.1,
+   "instances": [
+    {
+     "node": "FL-02_L",
+     "center": [
+      200.0,
+      201.0,
+      58.4
+     ]
+    },
+    {
+     "node": "FL-02_R",
+     "center": [
+      200.0,
+      -201.0,
+      58.4
+     ]
+    }
+   ]
+  },
+  {
+   "code": "DT-04",
+   "name": "Polea punta de flipper 36T",
+   "group": "flipper",
+   "group_name": "Flippers",
+   "material": "PLA-CF",
+   "process": "Impresión 3D PLA-CF, 5 perímetros, 50%",
+   "qty": 2,
+   "notes": "2x rodamiento 6900-2RS, eje bulón M10x60 8.8.",
+   "bought": false,
+   "bbox_mm": [
+    63.0,
+    63.0,
+    31.0
+   ],
+   "files": {
+    "step": "cad/out/step/DT-04.step",
+    "stl": "cad/out/stl/DT-04.stl"
+   },
+   "mass_g_unit": 49.2,
+   "instances": [
+    {
+     "node": "DT-04_L",
+     "center": [
+      450.5,
+      171.5,
+      125.5
+     ]
+    },
+    {
+     "node": "DT-04_R",
+     "center": [
+      450.5,
+      -171.5,
+      125.5
+     ]
+    }
+   ]
+  },
+  {
+   "code": "FL-05",
+   "name": "Alojamiento rodamiento 6804",
+   "group": "flipper",
+   "group_name": "Flippers",
+   "material": "PLA-CF",
+   "process": "Impresión 3D PLA-CF 100%",
+   "qty": 2,
+   "notes": "",
+   "bought": false,
+   "bbox_mm": [
+    62.0,
+    62.0,
+    13.0
+   ],
+   "files": {
+    "step": "cad/out/step/FL-05.step",
+    "stl": "cad/out/stl/FL-05.stl"
+   },
+   "mass_g_unit": 11.9,
+   "instances": [
+    {
+     "node": "FL-05_L",
+     "center": [
+      200.0,
+      110.8,
+      58.4
+     ]
+    },
+    {
+     "node": "FL-05_R",
+     "center": [
+      200.0,
+      -110.8,
+      58.4
+     ]
+    }
+   ]
+  },
+  {
+   "code": "FL-04a",
+   "name": "Engranaje 40T sensor (sobre tubo)",
+   "group": "flipper",
+   "group_name": "Flippers",
+   "material": "PETG",
+   "process": "Impresión 3D PETG 100%, abrazadera M3",
+   "qty": 1,
+   "notes": "",
+   "bought": false,
+   "bbox_mm": [
+    41.9,
+    41.9,
+    8.0
+   ],
+   "files": {
+    "step": "cad/out/step/FL-04a.step",
+    "stl": "cad/out/stl/FL-04a.stl"
+   },
+   "mass_g_unit": 5.6,
+   "instances": [
+    {
+     "node": "FL-04a",
+     "center": [
+      200.0,
+      44.0,
+      58.6
+     ]
+    }
+   ]
+  },
+  {
+   "code": "FL-04b",
+   "name": "Engranaje 40T con imán (AS5600)",
+   "group": "flipper",
+   "group_name": "Flippers",
+   "material": "PETG",
+   "process": "Impresión 3D PETG 100%",
+   "qty": 1,
+   "notes": "Imán diametral 6x2.5 mm (viene con el módulo AS5600).",
+   "bought": false,
+   "bbox_mm": [
+    41.9,
+    41.9,
+    29.0
+   ],
+   "files": {
+    "step": "cad/out/step/FL-04b.step",
+    "stl": "cad/out/stl/FL-04b.stl"
+   },
+   "mass_g_unit": 8.0,
+   "instances": [
+    {
+     "node": "FL-04b",
+     "center": [
+      200.0,
+      44.8,
+      98.4
+     ]
+    }
+   ]
+  },
+  {
+   "code": "FL-04c",
+   "name": "Soporte sensor de ángulo",
+   "group": "flipper",
+   "group_name": "Flippers",
+   "material": "PETG",
+   "process": "Impresión 3D PETG 40%",
+   "qty": 1,
+   "notes": "",
+   "bought": false,
+   "bbox_mm": [
+    60.0,
+    30.0,
+    80.4
+   ],
+   "files": {
+    "step": "cad/out/step/FL-04c.step",
+    "stl": "cad/out/stl/FL-04c.stl"
+   },
+   "mass_g_unit": 19.3,
+   "instances": [
+    {
+     "node": "FL-04c",
+     "center": [
+      200.0,
+      56.9,
+      63.5
+     ]
+    }
+   ]
+  },
+  {
+   "code": "REF-F1",
+   "name": "Eje de punta M10",
+   "group": "flipper",
+   "group_name": "Flippers",
+   "material": "steel",
+   "process": "Bulón M10x60 8.8",
+   "qty": 2,
+   "notes": "",
+   "bought": true,
+   "bbox_mm": [
+    10.0,
+    10.0,
+    50.0
+   ],
+   "files": {},
+   "mass_g_unit": 30.8,
+   "instances": [
+    {
+     "node": "REF-F1_L",
+     "center": [
+      450.5,
+      178.0,
+      125.5
+     ]
+    },
+    {
+     "node": "REF-F1_R",
+     "center": [
+      450.5,
+      -178.0,
+      125.5
+     ]
+    }
+   ]
+  },
+  {
+   "code": "AR-01",
+   "name": "Base del brazo",
+   "group": "brazo",
+   "group_name": "Brazo manipulador",
+   "material": "PLA-CF",
+   "process": "Impresión 3D PLA-CF 6 per. 50%",
+   "qty": 1,
+   "notes": "Rodamiento lazy-susan 4\" (100 mm) entre base y torreta.",
+   "bought": false,
+   "bbox_mm": [
+    110.0,
+    110.0,
+    36.0
+   ],
+   "files": {
+    "step": "cad/out/step/AR-01.step",
+    "stl": "cad/out/stl/AR-01.stl"
+   },
+   "mass_g_unit": 103.6,
+   "instances": [
+    {
+     "node": "AR-01",
+     "center": [
+      151.2,
+      -0.0,
+      209.5
+     ]
+    }
+   ]
+  },
+  {
+   "code": "AR-02",
+   "name": "Torreta + mejillas del hombro",
+   "group": "brazo",
+   "group_name": "Brazo manipulador",
+   "material": "PLA-CF",
+   "process": "Impresión 3D PLA-CF 6 per. 60%",
+   "qty": 1,
+   "notes": "2x 608-2RS eje hombro. 2 servos J2 en paralelo, GT2 20T->60T (3:1), correa 160 mm.",
+   "bought": false,
+   "bbox_mm": [
+    104.0,
+    152.0,
+    69.0
+   ],
+   "files": {
+    "step": "cad/out/step/AR-02.step",
+    "stl": "cad/out/stl/AR-02.stl"
+   },
+   "mass_g_unit": 191.8,
+   "instances": [
+    {
+     "node": "AR-02",
+     "center": [
+      143.6,
+      0.0,
+      251.1
+     ]
+    }
+   ]
+  },
+  {
+   "code": "AR-03",
+   "name": "Cubo del hombro (2x GT2 60T)",
+   "group": "brazo",
+   "group_name": "Brazo manipulador",
+   "material": "PLA-CF",
+   "process": "Impresión 3D PLA-CF 100%",
+   "qty": 1,
+   "notes": "Eje 8 mm acero; tubo pegado con epoxi + pasador M3.",
+   "bought": false,
+   "bbox_mm": [
+    37.0,
+    95.0,
+    61.5
+   ],
+   "files": {
+    "step": "cad/out/step/AR-03.step",
+    "stl": "cad/out/stl/AR-03.stl"
+   },
+   "mass_g_unit": 53.7,
+   "instances": [
+    {
+     "node": "AR-03",
+     "center": [
+      146.6,
+      0.0,
+      279.0
+     ]
+    }
+   ]
+  },
+  {
+   "code": "AR-08",
+   "name": "Tubo eslabón 1 (CF 20x18)",
+   "group": "brazo",
+   "group_name": "Brazo manipulador",
+   "material": "PLA-CF",
+   "process": "Tubo fibra de carbono 20x18 cortado (o Al 20x1)",
+   "qty": 1,
+   "notes": "",
+   "bought": true,
+   "bbox_mm": [
+    20.0,
+    20.0,
+    202.0
+   ],
+   "files": {},
+   "mass_g_unit": 15.7,
+   "instances": [
+    {
+     "node": "AR-08",
+     "center": [
+      36.0,
+      -0.0,
+      279.0
+     ]
+    }
+   ]
+  },
+  {
+   "code": "AR-04",
+   "name": "Codo inferior + servo J3",
+   "group": "brazo",
+   "group_name": "Brazo manipulador",
+   "material": "PLA-CF",
+   "process": "Impresión 3D PLA-CF 6 per. 60%",
+   "qty": 1,
+   "notes": "GT2 20T (horn) -> 60T (cubo codo), correa 200 mm con tensor.",
+   "bought": false,
+   "bbox_mm": [
+    61.2,
+    111.0,
+    80.4
+   ],
+   "files": {
+    "step": "cad/out/step/AR-04.step",
+    "stl": "cad/out/stl/AR-04.stl"
+   },
+   "mass_g_unit": 139.9,
+   "instances": [
+    {
+     "node": "AR-04",
+     "center": [
+      -59.6,
+      17.3,
+      282.8
+     ]
+    }
+   ]
+  },
+  {
+   "code": "AR-05a",
+   "name": "Cubo del codo (GT2 60T)",
+   "group": "brazo",
+   "group_name": "Brazo manipulador",
+   "material": "PLA-CF",
+   "process": "Impresión 3D PLA-CF 100%",
+   "qty": 1,
+   "notes": "",
+   "bought": false,
+   "bbox_mm": [
+    37.0,
+    74.0,
+    58.5
+   ],
+   "files": {
+    "step": "cad/out/step/AR-05a.step",
+    "stl": "cad/out/stl/AR-05a.stl"
+   },
+   "mass_g_unit": 41.0,
+   "instances": [
+    {
+     "node": "AR-05a",
+     "center": [
+      -106.2,
+      5.6,
+      279.7
+     ]
+    }
+   ]
+  },
+  {
+   "code": "AR-09",
+   "name": "Tubo eslabón 2 (CF 20x18)",
+   "group": "brazo",
+   "group_name": "Brazo manipulador",
+   "material": "PLA-CF",
+   "process": "Tubo fibra de carbono 20x18 cortado",
+   "qty": 1,
+   "notes": "",
+   "bought": true,
+   "bbox_mm": [
+    20.0,
+    20.0,
+    175.0
+   ],
+   "files": {},
+   "mass_g_unit": 13.6,
+   "instances": [
+    {
+     "node": "AR-09",
+     "center": [
+      -12.0,
+      -0.0,
+      296.3
+     ]
+    }
+   ]
+  },
+  {
+   "code": "AR-05b",
+   "name": "Soporte servo muñeca J4",
+   "group": "brazo",
+   "group_name": "Brazo manipulador",
+   "material": "PLA-CF",
+   "process": "Impresión 3D PLA-CF 50%",
+   "qty": 1,
+   "notes": "",
+   "bought": false,
+   "bbox_mm": [
+    41.0,
+    40.0,
+    72.6
+   ],
+   "files": {
+    "step": "cad/out/step/AR-05b.step",
+    "stl": "cad/out/stl/AR-05b.stl"
+   },
+   "mass_g_unit": 55.5,
+   "instances": [
+    {
+     "node": "AR-05b",
+     "center": [
+      99.0,
+      2.1,
+      315.9
+     ]
+    }
+   ]
+  },
+  {
+   "code": "AR-06",
+   "name": "Horquilla de muñeca + servo J5",
+   "group": "brazo",
+   "group_name": "Brazo manipulador",
+   "material": "PLA-CF",
+   "process": "Impresión 3D PLA-CF 50%",
+   "qty": 1,
+   "notes": "",
+   "bought": false,
+   "bbox_mm": [
+    46.0,
+    50.7,
+    64.0
+   ],
+   "files": {
+    "step": "cad/out/step/AR-06.step",
+    "stl": "cad/out/stl/AR-06.stl"
+   },
+   "mass_g_unit": 45.7,
+   "instances": [
+    {
+     "node": "AR-06",
+     "center": [
+      151.7,
+      0.0,
+      311.5
+     ]
+    }
+   ]
+  },
+  {
+   "code": "AR-07",
+   "name": "Pinza (dedos engranados) + cámara + Hall",
+   "group": "brazo",
+   "group_name": "Brazo manipulador",
+   "material": "PETG",
+   "process": "Impresión 3D PETG 40%; almohadillas TPU",
+   "qty": 1,
+   "notes": "Ranura en V en los dedos para tomar el eje de 6 mm de la herramienta (tarea INSERT).",
+   "bought": false,
+   "bbox_mm": [
+    75.0,
+    40.0,
+    95.0
+   ],
+   "files": {
+    "step": "cad/out/step/AR-07.step",
+    "stl": "cad/out/stl/AR-07.stl"
+   },
+   "mass_g_unit": 54.9,
+   "instances": [
+    {
+     "node": "AR-07",
+     "center": [
+      201.7,
+      -0.0,
+      297.6
+     ]
+    }
+   ]
+  },
+  {
+   "code": "REF-SV",
+   "name": "Servo Feetech STS3215 12 V (x7)",
+   "group": "referencia",
+   "group_name": "Componentes comprados (referencia)",
+   "material": "motor",
+   "process": "Comprado",
+   "qty": 7,
+   "notes": "",
+   "bought": true,
+   "bbox_mm": [
+    45.2,
+    24.7,
+    39.0
+   ],
+   "files": {},
+   "mass_g_unit": 55.0,
+   "instances": [
+    {
+     "node": "REF-SV_0",
+     "center": [
+      161.2,
+      0.0,
+      213.6
+     ]
+    },
+    {
+     "node": "REF-SV_1",
+     "center": [
+      136.2,
+      25.1,
+      249.0
+     ]
+    },
+    {
+     "node": "REF-SV_2",
+     "center": [
+      136.2,
+      -25.1,
+      249.0
+     ]
+    },
+    {
+     "node": "REF-SV_3",
+     "center": [
+      -55.0,
+      21.1,
+      290.2
+     ]
+    },
+    {
+     "node": "REF-SV_4",
+     "center": [
+      128.3,
+      -4.0,
+      309.6
+     ]
+    },
+    {
+     "node": "REF-SV_5",
+     "center": [
+      187.2,
+      0.0,
+      286.6
+     ]
+    },
+    {
+     "node": "REF-SV_6",
+     "center": [
+      178.1,
+      11.2,
+      301.8
+     ]
+    }
+   ]
+  },
+  {
+   "code": "MT-01",
+   "name": "Bandeja de electrónica",
+   "group": "electronica",
+   "group_name": "Electrónica y potencia",
+   "material": "PETG",
+   "process": "Impresión 3D PETG (2 mitades) o policarbonato 3 mm + columnas",
+   "qty": 1,
+   "notes": "",
+   "bought": false,
+   "bbox_mm": [
+    196.0,
+    224.0,
+    88.0
+   ],
+   "files": {
+    "step": "cad/out/step/MT-01.step",
+    "stl": "cad/out/stl/MT-01.stl"
+   },
+   "mass_g_unit": 115.0,
+   "instances": [
+    {
+     "node": "MT-01",
+     "center": [
+      -30.0,
+      -0.0,
+      112.5
+     ]
+    }
+   ]
+  },
+  {
+   "code": "MT-02",
+   "name": "Cuna de batería",
+   "group": "electronica",
+   "group_name": "Electrónica y potencia",
+   "material": "PETG",
+   "process": "Impresión 3D PETG 30%",
+   "qty": 1,
+   "notes": "",
+   "bought": false,
+   "bbox_mm": [
+    82.0,
+    162.0,
+    30.0
+   ],
+   "files": {
+    "step": "cad/out/step/MT-02.step",
+    "stl": "cad/out/stl/MT-02.stl"
+   },
+   "mass_g_unit": 57.6,
+   "instances": [
+    {
+     "node": "MT-02",
+     "center": [
+      17.0,
+      0.0,
+      41.3
+     ]
+    }
+   ]
+  },
+  {
+   "code": "MT-03",
+   "name": "Mástil del LiDAR",
+   "group": "sensores",
+   "group_name": "Sensores",
+   "material": "PLA-CF",
+   "process": "Base y plato impresos + tubo Al 25x2",
+   "qty": 1,
+   "notes": "",
+   "bought": false,
+   "bbox_mm": [
+    72.0,
+    72.0,
+    186.0
+   ],
+   "files": {
+    "step": "cad/out/step/MT-03.step",
+    "stl": "cad/out/stl/MT-03.stl"
+   },
+   "mass_g_unit": 63.1,
+   "instances": [
+    {
+     "node": "MT-03",
+     "center": [
+      -170.0,
+      0.0,
+      296.0
+     ]
+    }
+   ]
+  },
+  {
+   "code": "MT-04",
+   "name": "Cabezal de sensores frontal",
+   "group": "sensores",
+   "group_name": "Sensores",
+   "material": "PLA-CF",
+   "process": "Impresión 3D PLA-CF 40%",
+   "qty": 1,
+   "notes": "",
+   "bought": false,
+   "bbox_mm": [
+    41.0,
+    160.0,
+    73.0
+   ],
+   "files": {
+    "step": "cad/out/step/MT-04.step",
+    "stl": "cad/out/stl/MT-04.stl"
+   },
+   "mass_g_unit": 84.0,
+   "instances": [
+    {
+     "node": "MT-04",
+     "center": [
+      206.9,
+      0.0,
+      214.4
+     ]
+    }
+   ]
+  },
+  {
+   "code": "MT-05",
+   "name": "Protección del E-stop",
+   "group": "electronica",
+   "group_name": "Electrónica y potencia",
+   "material": "PETG",
+   "process": "Impresión 3D PETG rojo",
+   "qty": 1,
+   "notes": "",
+   "bought": false,
+   "bbox_mm": [
+    58.3,
+    60.0,
+    22.0
+   ],
+   "files": {
+    "step": "cad/out/step/MT-05.step",
+    "stl": "cad/out/stl/MT-05.stl"
+   },
+   "mass_g_unit": 10.4,
+   "instances": [
+    {
+     "node": "MT-05",
+     "center": [
+      -203.6,
+      -75.0,
+      205.0
+     ]
+    }
+   ]
+  },
+  {
+   "code": "MT-06",
+   "name": "Soporte cámara frontal",
+   "group": "sensores",
+   "group_name": "Sensores",
+   "material": "PETG",
+   "process": "Impresión 3D PETG",
+   "qty": 1,
+   "notes": "",
+   "bought": false,
+   "bbox_mm": [
+    32.0,
+    50.0,
+    50.0
+   ],
+   "files": {
+    "step": "cad/out/step/MT-06.step",
+    "stl": "cad/out/stl/MT-06.stl"
+   },
+   "mass_g_unit": 19.2,
+   "instances": [
+    {
+     "node": "MT-06",
+     "center": [
+      205.4,
+      -0.0,
+      158.7
+     ]
+    }
+   ]
+  },
+  {
+   "code": "REF-BAT",
+   "name": "Batería 6S Li-ion 21700 6S2P (≈10 Ah)",
+   "group": "referencia",
+   "group_name": "Componentes comprados (referencia)",
+   "material": "elec",
+   "process": "Comprado",
+   "qty": 1,
+   "notes": "",
+   "bought": true,
+   "bbox_mm": [
+    70.0,
+    150.0,
+    50.0
+   ],
+   "files": {},
+   "mass_g_unit": 1300.0,
+   "instances": [
+    {
+     "node": "REF-BAT",
+     "center": [
+      17.0,
+      -0.0,
+      61.0
+     ]
+    }
+   ]
+  },
+  {
+   "code": "REF-LID",
+   "name": "Livox Mid-360 (LiDAR 3D)",
+   "group": "referencia",
+   "group_name": "Componentes comprados (referencia)",
+   "material": "sensor",
+   "process": "Comprado",
+   "qty": 1,
+   "notes": "",
+   "bought": true,
+   "bbox_mm": [
+    65.0,
+    65.0,
+    65.0
+   ],
+   "files": {},
+   "mass_g_unit": 265.0,
+   "instances": [
+    {
+     "node": "REF-LID",
+     "center": [
+      -170.0,
+      0.0,
+      412.5
+     ]
+    }
+   ]
+  },
+  {
+   "code": "REF-DEP",
+   "name": "Cámara de profundidad (Orbbec Gemini 2 / RealSense D435i)",
+   "group": "referencia",
+   "group_name": "Componentes comprados (referencia)",
+   "material": "sensor",
+   "process": "Comprado",
+   "qty": 1,
+   "notes": "",
+   "bought": true,
+   "bbox_mm": [
+    26.0,
+    90.0,
+    25.0
+   ],
+   "files": {},
+   "mass_g_unit": 300.0,
+   "instances": [
+    {
+     "node": "REF-DEP",
+     "center": [
+      210.0,
+      -0.0,
+      233.5
+     ]
+    }
+   ]
+  },
+  {
+   "code": "REF-THM",
+   "name": "Cámara térmica USB 256x192",
+   "group": "referencia",
+   "group_name": "Componentes comprados (referencia)",
+   "material": "sensor",
+   "process": "Comprado",
+   "qty": 1,
+   "notes": "",
+   "bought": true,
+   "bbox_mm": [
+    20.0,
+    26.0,
+    26.0
+   ],
+   "files": {},
+   "mass_g_unit": 60.0,
+   "instances": [
+    {
+     "node": "REF-THM",
+     "center": [
+      210.0,
+      62.0,
+      234.0
+     ]
+    }
+   ]
+  },
+  {
+   "code": "REF-ESTOP",
+   "name": "E-stop hongo 22 mm NC",
+   "group": "referencia",
+   "group_name": "Componentes comprados (referencia)",
+   "material": "red",
+   "process": "Comprado",
+   "qty": 1,
+   "notes": "",
+   "bought": true,
+   "bbox_mm": [
+    40.0,
+    40.0,
+    18.0
+   ],
+   "files": {},
+   "mass_g_unit": 80.0,
+   "instances": [
+    {
+     "node": "REF-ESTOP",
+     "center": [
+      -200.0,
+      -75.0,
+      209.0
+     ]
+    }
+   ]
+  },
+  {
+   "code": "REF-jetson",
+   "name": "Jetson Orin Nano Super (devkit)",
+   "group": "referencia",
+   "group_name": "Componentes comprados (referencia)",
+   "material": "elec",
+   "process": "Comprado",
+   "qty": 1,
+   "notes": "",
+   "bought": true,
+   "bbox_mm": [
+    103.0,
+    90.0,
+    35.0
+   ],
+   "files": {},
+   "mass_g_unit": 280.0,
+   "instances": [
+    {
+     "node": "REF-jetson",
+     "center": [
+      -30.0,
+      -0.0,
+      138.5
+     ]
+    }
+   ]
+  },
+  {
+   "code": "REF-esp32",
+   "name": "ESP32-S3 DevKitC-1 + placa base (PCB-01)",
+   "group": "referencia",
+   "group_name": "Componentes comprados (referencia)",
+   "material": "elec",
+   "process": "Comprado",
+   "qty": 1,
+   "notes": "",
+   "bought": true,
+   "bbox_mm": [
+    46.0,
+    70.0,
+    18.0
+   ],
+   "files": {},
+   "mass_g_unit": 60.0,
+   "instances": [
+    {
+     "node": "REF-esp32",
+     "center": [
+      -105.0,
+      62.0,
+      130.0
+     ]
+    }
+   ]
+  },
+  {
+   "code": "REF-buck_12v_pc",
+   "name": "Buck 24->12 V 10 A (Jetson)",
+   "group": "referencia",
+   "group_name": "Componentes comprados (referencia)",
+   "material": "elec",
+   "process": "Comprado",
+   "qty": 1,
+   "notes": "",
+   "bought": true,
+   "bbox_mm": [
+    50.0,
+    60.0,
+    22.0
+   ],
+   "files": {},
+   "mass_g_unit": 120.0,
+   "instances": [
+    {
+     "node": "REF-buck_12v_pc",
+     "center": [
+      40.0,
+      80.0,
+      132.0
+     ]
+    }
+   ]
+  },
+  {
+   "code": "REF-buck_12v_arm",
+   "name": "Buck 24->12 V 10 A (servos brazo)",
+   "group": "referencia",
+   "group_name": "Componentes comprados (referencia)",
+   "material": "elec",
+   "process": "Comprado",
+   "qty": 1,
+   "notes": "",
+   "bought": true,
+   "bbox_mm": [
+    60.0,
+    50.0,
+    22.0
+   ],
+   "files": {},
+   "mass_g_unit": 120.0,
+   "instances": [
+    {
+     "node": "REF-buck_12v_arm",
+     "center": [
+      -30.0,
+      80.0,
+      132.0
+     ]
+    }
+   ]
+  },
+  {
+   "code": "REF-buck_5v",
+   "name": "Buck 24->5 V 5 A (lógica/USB/LEDs)",
+   "group": "referencia",
+   "group_name": "Componentes comprados (referencia)",
+   "material": "elec",
+   "process": "Comprado",
+   "qty": 1,
+   "notes": "",
+   "bought": true,
+   "bbox_mm": [
+    50.0,
+    30.0,
+    15.0
+   ],
+   "files": {},
+   "mass_g_unit": 50.0,
+   "instances": [
+    {
+     "node": "REF-buck_5v",
+     "center": [
+      -30.0,
+      -80.0,
+      128.5
+     ]
+    }
+   ]
+  },
+  {
+   "code": "REF-drv_traccion",
+   "name": "Cytron MDD20A (tracción, 2 canales)",
+   "group": "referencia",
+   "group_name": "Componentes comprados (referencia)",
+   "material": "elec",
+   "process": "Comprado",
+   "qty": 1,
+   "notes": "",
+   "bought": true,
+   "bbox_mm": [
+    84.0,
+    22.0,
+    62.0
+   ],
+   "files": {},
+   "mass_g_unit": 120.0,
+   "instances": [
+    {
+     "node": "REF-drv_traccion",
+     "center": [
+      150.0,
+      103.0,
+      149.0
+     ]
+    }
+   ]
+  },
+  {
+   "code": "REF-drv_flipper",
+   "name": "Cytron MDD10A (flipper + canal libre)",
+   "group": "referencia",
+   "group_name": "Componentes comprados (referencia)",
+   "material": "elec",
+   "process": "Comprado",
+   "qty": 1,
+   "notes": "",
+   "bought": true,
+   "bbox_mm": [
+    63.0,
+    22.0,
+    60.0
+   ],
+   "files": {},
+   "mass_g_unit": 80.0,
+   "instances": [
+    {
+     "node": "REF-drv_flipper",
+     "center": [
+      180.0,
+      -103.0,
+      148.0
+     ]
+    }
+   ]
+  },
+  {
+   "code": "REF-fusibles",
+   "name": "Caja fusibles ATO 6 vías",
+   "group": "referencia",
+   "group_name": "Componentes comprados (referencia)",
+   "material": "elec",
+   "process": "Comprado",
+   "qty": 1,
+   "notes": "",
+   "bought": true,
+   "bbox_mm": [
+    60.0,
+    45.0,
+    30.0
+   ],
+   "files": {},
+   "mass_g_unit": 80.0,
+   "instances": [
+    {
+     "node": "REF-fusibles",
+     "center": [
+      -200.0,
+      -40.0,
+      48.0
+     ]
+    }
+   ]
+  },
+  {
+   "code": "REF-rele_estop",
+   "name": "Contactor/relé 40 A del E-stop",
+   "group": "referencia",
+   "group_name": "Componentes comprados (referencia)",
+   "material": "elec",
+   "process": "Comprado",
+   "qty": 1,
+   "notes": "",
+   "bought": true,
+   "bbox_mm": [
+    40.0,
+    30.0,
+    30.0
+   ],
+   "files": {},
+   "mass_g_unit": 100.0,
+   "instances": [
+    {
+     "node": "REF-rele_estop",
+     "center": [
+      -200.0,
+      40.0,
+      48.0
+     ]
+    }
+   ]
+  },
+  {
+   "code": "REF-hub_usb",
+   "name": "Hub USB 3.0 alimentado 7 puertos",
+   "group": "referencia",
+   "group_name": "Componentes comprados (referencia)",
+   "material": "elec",
+   "process": "Comprado",
+   "qty": 1,
+   "notes": "",
+   "bought": true,
+   "bbox_mm": [
+    90.0,
+    30.0,
+    15.0
+   ],
+   "files": {},
+   "mass_g_unit": 120.0,
+   "instances": [
+    {
+     "node": "REF-hub_usb",
+     "center": [
+      -170.0,
+      0.0,
+      40.5
+     ]
+    }
+   ]
+  }
+ ]
+}

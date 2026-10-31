@@ -1,0 +1,15 @@
+# Nombres fijos para los dispositivos del Carpincho. Instalar:
+#   sudo cp 99-carpincho.rules /etc/udev/rules.d/ && sudo udevadm control --reload && sudo udevadm trigger
+# Para ver los atributos de un dispositivo:  udevadm info -a -n /dev/ttyACM0 | grep -E "idVendor|idProduct|serial"
+
+# ESP32-S3 (USB nativo CDC, Espressif 303a:1001)
+SUBSYSTEM=="tty", ATTRS{idVendor}=="303a", ATTRS{idProduct}=="1001", SYMLINK+="carpincho_base", MODE="0666"
+# Adaptador de servos Feetech/Waveshare (CH343 1a86:55d3 o CH340 1a86:7523)
+SUBSYSTEM=="tty", ATTRS{idVendor}=="1a86", ATTRS{idProduct}=="55d3", SYMLINK+="carpincho_arm", MODE="0666"
+SUBSYSTEM=="tty", ATTRS{idVendor}=="1a86", ATTRS{idProduct}=="7523", SYMLINK+="carpincho_arm", MODE="0666"
+# Cámaras USB: identificarlas por el puerto físico (ID_PATH) porque suelen tener el mismo VID/PID.
+# Reemplazar los ID_PATH con los de tu Jetson:  udevadm info -q property -n /dev/video0 | grep ID_PATH
+SUBSYSTEM=="video4linux", ENV{ID_PATH}=="platform-3610000.usb-usb-0:1.1:1.0", ATTR{index}=="0", SYMLINK+="video_front"
+SUBSYSTEM=="video4linux", ENV{ID_PATH}=="platform-3610000.usb-usb-0:1.2:1.0", ATTR{index}=="0", SYMLINK+="video_rear"
+SUBSYSTEM=="video4linux", ENV{ID_PATH}=="platform-3610000.usb-usb-0:1.3:1.0", ATTR{index}=="0", SYMLINK+="video_gripper"
+SUBSYSTEM=="video4linux", ENV{ID_PATH}=="platform-3610000.usb-usb-0:1.4:1.0", ATTR{index}=="0", SYMLINK+="video_thermal"

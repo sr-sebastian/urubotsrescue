@@ -1,0 +1,14 @@
+joy_teleop:
+  ros__parameters:
+    speeds: [0.15, 0.35, 0.70]
+    turn_rate: [0.6, 1.2, 2.0]
+    deadzone: 0.12
+    triggers_rest_at_one: true      # xpad (Xbox). PS4/PS5 con hid-sony: también true
+    # Si tu joystick es distinto, mirá `ros2 topic echo /joy` y cambiá los índices:
+    axes: {lx: 0, ly: 1, lt: 2, rx: 3, ry: 4, rt: 5, dx: 6, dy: 7}
+    buttons: {a: 0, b: 1, x: 2, y: 3, lb: 4, rb: 5, back: 6, start: 7, guide: 8, ls: 9, rs: 10}
+joy_node:
+  ros__parameters:
+    device_id: 0
+    deadzone: 0.05
+    autorepeat_rate: 20.0

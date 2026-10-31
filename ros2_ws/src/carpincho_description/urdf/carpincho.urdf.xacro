@@ -1,0 +1,242 @@
+<?xml version="1.0"?>
+<!--
+  Robot de rescate Carpincho (UruBots). REP-103: X adelante, Y izquierda, Z arriba.
+  Las dimensiones vienen de carpincho_params.xacro, que GENERA cad/build.py desde params.py.
+  Frames principales:
+    base_footprint (piso, centro entre ejes) -> base_link (altura de ejes)
+    flipper_link (revoluta, ambos flippers en un mismo tubo)
+    arm_base_link -> arm_link1..5 -> tool_tip (brazo C1)
+    imu_link, livox_frame, depth_cam_link (+ _optical_frame), thermal_link, cam_front_link, cam_rear_link,
+    gripper_cam_link
+-->
+<robot name="carpincho" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:include filename="$(find carpincho_description)/urdf/carpincho_params.xacro"/>
+  <xacro:arg name="with_arm" default="true"/>
+
+  <xacro:property name="PI" value="3.14159265359"/>
+  <xacro:property name="deck_top" value="${body_top_z + deck_t}"/>
+
+  <material name="aluminio"><color rgba="0.72 0.74 0.78 1"/></material>
+  <material name="oruga"><color rgba="0.08 0.08 0.08 1"/></material>
+  <material name="naranja"><color rgba="0.95 0.55 0.10 1"/></material>
+  <material name="sensor"><color rgba="0.15 0.30 0.65 1"/></material>
+
+  <xacro:macro name="box_inertia" params="m x y z">
+    <inertia ixx="${m*(y*y+z*z)/12}" iyy="${m*(x*x+z*z)/12}" izz="${m*(x*x+y*y)/12}" ixy="0" ixz="0" iyz="0"/>
+  </xacro:macro>
+
+  <link name="base_footprint"/>
+
+  <link name="base_link">
+    <visual>
+      <origin xyz="0 0 ${(body_bottom_z + body_top_z)/2 - axle_z}"/>
+      <geometry><box size="${body_len} ${body_w} ${body_top_z - body_bottom_z}"/></geometry>
+      <material name="aluminio"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 ${(body_bottom_z + body_top_z)/2 - axle_z}"/>
+      <geometry><box size="${body_len} ${body_w} ${body_top_z - body_bottom_z}"/></geometry>
+    </collision>
+    <inertial>
+      <origin xyz="${cg_x} ${cg_y} ${cg_z - axle_z}"/>
+      <mass value="${mass_total}"/>
+      <xacro:box_inertia m="${mass_total}" x="${body_len}" y="${body_w}" z="0.2"/>
+    </inertial>
+  </link>
+  <joint name="base_joint" type="fixed">
+    <parent link="base_footprint"/><child link="base_link"/>
+    <origin xyz="0 0 ${axle_z}"/>
+  </joint>
+
+  <!-- orugas principales (visual: caja + 2 cilindros) -->
+  <xacro:macro name="track" params="side sign">
+    <link name="track_${side}_link">
+      <visual>
+        <geometry><box size="${axle_dist} ${track_w} ${track_pd + 2*grouser_h}"/></geometry>
+        <material name="oruga"/>
+      </visual>
+      <visual>
+        <origin xyz="${axle_dist/2} 0 0" rpy="${PI/2} 0 0"/>
+        <geometry><cylinder radius="${track_pd/2 + grouser_h}" length="${track_w}"/></geometry>
+        <material name="oruga"/>
+      </visual>
+      <visual>
+        <origin xyz="${-axle_dist/2} 0 0" rpy="${PI/2} 0 0"/>
+        <geometry><cylinder radius="${track_pd/2 + grouser_h}" length="${track_w}"/></geometry>
+        <material name="oruga"/>
+      </visual>
+      <collision>
+        <geometry><box size="${axle_dist + track_pd} ${track_w} ${track_pd + 2*grouser_h}"/></geometry>
+      </collision>
+    </link>
+    <joint name="track_${side}_joint" type="fixed">
+      <parent link="base_link"/><child link="track_${side}_link"/>
+      <origin xyz="0 ${sign*track_y} 0"/>
+    </joint>
+  </xacro:macro>
+  <xacro:track side="left" sign="1"/>
+  <xacro:track side="right" sign="-1"/>
+
+  <!-- flippers: un solo grado de libertad (tubo común). 0 rad = horizontal hacia adelante,
+       positivo = punta hacia ARRIBA (por eso el eje es -Y) -->
+  <link name="flipper_link"/>
+  <joint name="flipper_joint" type="revolute">
+    <parent link="base_link"/><child link="flipper_link"/>
+    <origin xyz="${axle_dist/2} 0 0"/>
+    <axis xyz="0 -1 0"/>
+    <limit lower="${flip_min}" upper="${flip_max}" effort="30" velocity="1.5"/>
+  </joint>
+  <xacro:macro name="flipper" params="side sign">
+    <link name="flipper_${side}_link">
+      <visual>
+        <origin xyz="${flip_len/2} 0 0"/>
+        <geometry><box size="${flip_len} ${track_w} ${flip_tip_pd + 2*grouser_h}"/></geometry>
+        <material name="oruga"/>
+      </visual>
+      <visual>
+        <origin xyz="${flip_len} 0 0" rpy="${PI/2} 0 0"/>
+        <geometry><cylinder radius="${flip_tip_pd/2 + grouser_h}" length="${track_w}"/></geometry>
+        <material name="oruga"/>
+      </visual>
+      <collision>
+        <origin xyz="${flip_len/2} 0 0"/>
+        <geometry><box size="${flip_len} ${track_w} ${flip_tip_pd + 2*grouser_h}"/></geometry>
+      </collision>
+      <inertial>
+        <origin xyz="${flip_len/2} 0 0"/><mass value="0.6"/>
+        <xacro:box_inertia m="0.6" x="${flip_len}" y="${track_w}" z="0.06"/>
+      </inertial>
+    </link>
+    <joint name="flipper_${side}_fixed" type="fixed">
+      <parent link="flipper_link"/><child link="flipper_${side}_link"/>
+      <origin xyz="0 ${sign*flip_y} 0"/>
+    </joint>
+  </xacro:macro>
+  <xacro:flipper side="left" sign="1"/>
+  <xacro:flipper side="right" sign="-1"/>
+
+  <!-- IMU (BNO055 en la placa base, sobre la bandeja). Ajustar rpy al montaje real. -->
+  <link name="imu_link"/>
+  <joint name="imu_joint" type="fixed">
+    <parent link="base_link"/><child link="imu_link"/>
+    <origin xyz="-0.105 0.062 ${0.142 - axle_z}" rpy="0 0 0"/>
+  </joint>
+
+  <!-- LiDAR 3D Livox Mid-360 (frame del driver: livox_frame) -->
+  <link name="livox_frame">
+    <visual>
+      <origin xyz="0 0 0.0325"/>
+      <geometry><cylinder radius="0.0325" length="0.065"/></geometry>
+      <material name="sensor"/>
+    </visual>
+  </link>
+  <joint name="livox_joint" type="fixed">
+    <parent link="base_link"/><child link="livox_frame"/>
+    <origin xyz="${lidar_x} ${lidar_y} ${lidar_z + 0.047 - axle_z}"/>
+  </joint>
+
+  <!-- cámaras: link físico (X adelante) + frame óptico (Z adelante, X derecha) -->
+  <xacro:macro name="camera" params="name x y z yaw:=0 pitch:=0">
+    <link name="${name}_link">
+      <visual><geometry><box size="0.025 0.06 0.025"/></geometry><material name="sensor"/></visual>
+    </link>
+    <joint name="${name}_joint" type="fixed">
+      <parent link="base_link"/><child link="${name}_link"/>
+      <origin xyz="${x} ${y} ${z - axle_z}" rpy="0 ${pitch} ${yaw}"/>
+    </joint>
+    <link name="${name}_optical_frame"/>
+    <joint name="${name}_optical_joint" type="fixed">
+      <parent link="${name}_link"/><child link="${name}_optical_frame"/>
+      <origin rpy="${-PI/2} 0 ${-PI/2}"/>
+    </joint>
+  </xacro:macro>
+  <xacro:camera name="depth_cam" x="${depth_x}" y="${depth_y}" z="${depth_z}" pitch="0.17"/>
+  <xacro:camera name="thermal" x="${thermal_x}" y="${thermal_y}" z="${thermal_z}" pitch="0.17"/>
+  <xacro:camera name="cam_front" x="${cam_front_x}" y="0" z="${cam_front_z}"/>
+  <xacro:camera name="cam_rear" x="${cam_rear_x}" y="0" z="${cam_rear_z}" yaw="${PI}"/>
+
+  <!-- brazo C1 -->
+  <xacro:if value="$(arg with_arm)">
+    <link name="arm_base_link">
+      <visual>
+        <origin xyz="0 0 0.018"/>
+        <geometry><cylinder radius="0.055" length="0.036"/></geometry>
+        <material name="naranja"/>
+      </visual>
+    </link>
+    <joint name="arm_base_joint" type="fixed">
+      <parent link="base_link"/><child link="arm_base_link"/>
+      <origin xyz="${arm_x} 0 ${deck_top - axle_z}"/>
+    </joint>
+    <xacro:macro name="arm_link" params="n length radius:=0.012">
+      <link name="arm_link${n}">
+        <visual>
+          <origin xyz="0 0 ${length/2}"/>
+          <geometry><cylinder radius="${radius}" length="${length}"/></geometry>
+          <material name="naranja"/>
+        </visual>
+        <collision>
+          <origin xyz="0 0 ${length/2}"/>
+          <geometry><cylinder radius="${radius + 0.01}" length="${length}"/></geometry>
+        </collision>
+        <inertial>
+          <origin xyz="0 0 ${length/2}"/><mass value="0.25"/>
+          <inertia ixx="${0.25*length*length/12}" iyy="${0.25*length*length/12}" izz="0.0001" ixy="0" ixz="0" iyz="0"/>
+        </inertial>
+      </link>
+    </xacro:macro>
+    <xacro:arm_link n="1" length="${arm_base_h}" radius="0.03"/>
+    <xacro:arm_link n="2" length="${arm_l1}"/>
+    <xacro:arm_link n="3" length="${arm_l2}"/>
+    <xacro:arm_link n="4" length="0.05" radius="0.02"/>
+    <xacro:arm_link n="5" length="${arm_l3 - 0.05}" radius="0.02"/>
+    <joint name="arm_j1" type="revolute">
+      <parent link="arm_base_link"/><child link="arm_link1"/>
+      <axis xyz="0 0 1"/><limit lower="-2.967" upper="2.967" effort="2.9" velocity="2.0"/>
+    </joint>
+    <joint name="arm_j2" type="revolute">
+      <parent link="arm_link1"/><child link="arm_link2"/>
+      <origin xyz="0 0 ${arm_base_h}"/>
+      <axis xyz="0 1 0"/><limit lower="-1.571" upper="1.484" effort="11.6" velocity="1.2"/>
+    </joint>
+    <joint name="arm_j3" type="revolute">
+      <parent link="arm_link2"/><child link="arm_link3"/>
+      <origin xyz="0 0 ${arm_l1}"/>
+      <axis xyz="0 1 0"/><limit lower="-0.087" upper="2.967" effort="5.8" velocity="1.2"/>
+    </joint>
+    <joint name="arm_j4" type="revolute">
+      <parent link="arm_link3"/><child link="arm_link4"/>
+      <origin xyz="0 0 ${arm_l2}"/>
+      <axis xyz="0 1 0"/><limit lower="-1.92" upper="1.92" effort="2.9" velocity="2.0"/>
+    </joint>
+    <joint name="arm_j5" type="revolute">
+      <parent link="arm_link4"/><child link="arm_link5"/>
+      <origin xyz="0 0 0.05"/>
+      <axis xyz="0 0 1"/><limit lower="-3.1" upper="3.1" effort="2.9" velocity="2.0"/>
+    </joint>
+    <link name="tool_tip"/>
+    <joint name="tool_tip_joint" type="fixed">
+      <parent link="arm_link5"/><child link="tool_tip"/>
+      <origin xyz="0 0 ${arm_l3 - 0.05}"/>
+    </joint>
+    <!-- dedo de la pinza (equivalente prismático: 0 cerrada .. 0.0525 abierta) -->
+    <link name="gripper_finger_link">
+      <visual><origin xyz="0 0 -0.04"/><geometry><box size="0.008 0.018 0.08"/></geometry><material name="naranja"/></visual>
+    </link>
+    <joint name="gripper_joint" type="prismatic">
+      <parent link="arm_link5"/><child link="gripper_finger_link"/>
+      <origin xyz="0 0 ${arm_l3 - 0.05}"/>
+      <axis xyz="1 0 0"/><limit lower="0" upper="0.0525" effort="20" velocity="0.1"/>
+    </joint>
+    <link name="gripper_cam_link"/>
+    <joint name="gripper_cam_joint" type="fixed">
+      <parent link="arm_link5"/><child link="gripper_cam_link"/>
+      <origin xyz="-0.032 0 0.02" rpy="0 ${-PI/2} 0"/>
+    </joint>
+    <link name="gripper_cam_optical_frame"/>
+    <joint name="gripper_cam_optical_joint" type="fixed">
+      <parent link="gripper_cam_link"/><child link="gripper_cam_optical_frame"/>
+      <origin rpy="${-PI/2} 0 ${-PI/2}"/>
+    </joint>
+  </xacro:if>
+</robot>

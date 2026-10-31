@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!-- GENERADO por cad/build.py a partir de cad/carpincho_cad/params.py. No editar a mano. Unidades SI (m, kg, rad). -->
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:property name="axle_dist" value="0.4000"/>
+  <xacro:property name="axle_z" value="0.0584"/>
+  <xacro:property name="track_pd" value="0.0955"/>
+  <xacro:property name="track_w" value="0.0250"/>
+  <xacro:property name="track_y" value="0.1375"/>
+  <xacro:property name="flip_y" value="0.1715"/>
+  <xacro:property name="flip_len" value="0.2593"/>
+  <xacro:property name="flip_tip_pd" value="0.0573"/>
+  <xacro:property name="body_len" value="0.4900"/>
+  <xacro:property name="body_w" value="0.2380"/>
+  <xacro:property name="body_bottom_z" value="0.0300"/>
+  <xacro:property name="body_top_z" value="0.1900"/>
+  <xacro:property name="deck_t" value="0.0040"/>
+  <xacro:property name="grouser_h" value="0.0080"/>
+  <xacro:property name="mass_total" value="16.842"/>
+  <xacro:property name="cg_x" value="0.0280"/>
+  <xacro:property name="cg_y" value="0.0006"/>
+  <xacro:property name="cg_z" value="0.1123"/>
+  <xacro:property name="arm_x" value="0.1500"/>
+  <xacro:property name="arm_base_h" value="0.0850"/>
+  <xacro:property name="arm_l1" value="0.2600"/>
+  <xacro:property name="arm_l2" value="0.2400"/>
+  <xacro:property name="arm_l3" value="0.1400"/>
+  <xacro:property name="lidar_x" value="-0.1700"/>
+  <xacro:property name="lidar_y" value="0.0000"/>
+  <xacro:property name="lidar_z" value="0.3800"/>
+  <xacro:property name="depth_x" value="0.2150"/>
+  <xacro:property name="depth_y" value="0.0000"/>
+  <xacro:property name="depth_z" value="0.2350"/>
+  <xacro:property name="thermal_x" value="0.2150"/>
+  <xacro:property name="thermal_y" value="0.0450"/>
+  <xacro:property name="thermal_z" value="0.2350"/>
+  <xacro:property name="cam_front_x" value="0.2300"/>
+  <xacro:property name="cam_front_z" value="0.1650"/>
+  <xacro:property name="cam_rear_x" value="-0.2300"/>
+  <xacro:property name="cam_rear_z" value="0.1650"/>
+  <xacro:property name="flip_min" value="-1.7453"/>
+  <xacro:property name="flip_max" value="3.3161"/>
+</robot>
