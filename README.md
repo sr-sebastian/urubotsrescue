@@ -5,6 +5,7 @@ Robot terrestre de rescate de **[UruBots](https://github.com/UruBots)** (UTEC, R
 
 ![Carpincho](docs/img/vista_iso.png)
 
+Proyecto **nuevo, pensado para 2027**: no reutiliza robots, hardware ni código de temporadas anteriores.
 Este repositorio es el **megaproyecto completo**: planificación, diseño 3D paramétrico, piezas para fabricar,
 guía de armado, electrónica y cableado, firmware, software ROS 2 (teleoperación, percepción, mapeo y
 autonomía), plan de pruebas, checklists de competencia y solución de errores.
@@ -14,7 +15,7 @@ autonomía), plan de pruebas, checklists de competencia y solución de errores.
 | **Tipo** | Orugas con 2 flippers delanteros + brazo de 5 GDL con pinza |
 | **Medidas** | 519 × 414 mm (759 mm con flippers extendidos) · ≈ 17 kg |
 | **Movilidad** | Escaleras de 45° (apoya en 2.3 escalones a la vez), rampas, K-rails, stepfields, grava |
-| **Cómputo** | Jetson Orin Nano Super (ROS 2 Humble) + ESP32-S3 (tiempo real) |
+| **Cómputo** | Jetson Orin Nano Super (ROS 2 Jazzy LTS) + ESP32-S3 (tiempo real) |
 | **Sensores** | Livox Mid-360 (3D), RGB-D, térmica 256×192, 3 cámaras USB, IMU, Hall en la pinza, audio |
 | **Software** | FAST-LIO, detección de QR/hazmat/movimiento/térmica, POIs en el mapa, exportación GeoTIFF/PLY/CSV del reglamento, carril autónomo |
 | **Costo estimado** | ≈ 3 900 USD ([BOM](hardware/bom.md)) |
@@ -69,7 +70,7 @@ python -m http.server 8000
 g++ -std=c++17 -I firmware/carpincho_base/include firmware/carpincho_base/test_host/test_protocol.cpp -o /tmp/t && /tmp/t
 cd firmware/carpincho_base && pio run
 
-# 4. ROS 2 (Humble o Jazzy)
+# 4. ROS 2 Jazzy (Ubuntu 24.04)
 cd ros2_ws && colcon build && colcon test && colcon test-result --verbose
 
 # 5. Probar el robot sin robot

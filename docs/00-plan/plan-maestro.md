@@ -2,6 +2,8 @@
 
 > Estado: **v0.1 (31/10/2026)**, diseño de referencia completo y software base compilando y con tests.
 > Todavía no hay robot físico: los números de este plan son estimaciones para validar con el prototipo.
+> **Es un proyecto nuevo para 2027**: no se apoya en robots, hardware ni código de temporadas anteriores de
+> UruBots (todo eso quedó desactualizado). Lo que haya en el laboratorio se puede usar, pero el plan no depende de eso.
 
 ## 1. Objetivo
 
@@ -15,7 +17,8 @@ Construir un robot terrestre de rescate **propio de UruBots** que pueda:
 5. **Hacerlo en forma autónoma**, porque ahí está el puntaje: una pasada autónoma vale **15 puntos**
    contra 1 teleoperada, y la destreza autónoma multiplica por 10 o por 20.
 
-Categoría objetivo: **RoboCup Rescue Robot League** (reglamento 2026D como base). El mismo robot sirve
+Categoría objetivo: **RoboCup Rescue Robot League 2027** (mientras no salga el reglamento 2027, se usa como base el
+último publicado, el **2026D**; ver la sección 1 de [reglamento](../01-reglamento/reglamento-y-estrategia.md)). El mismo robot sirve
 para la categoría de rescate terrestre de la **FIRA** si se abre en 2027; ver
 [docs/01-reglamento](../01-reglamento/reglamento-y-estrategia.md), donde se explica qué hay que
 confirmar en cuanto salgan las reglas FIRA 2027.
@@ -47,7 +50,7 @@ gantt
     section Fase 0 · Arranque
     Organización, roles, reglamento         :f0a, 2026-11-02, 14d
     Compras largas (LiDAR, Jetson, motores)  :crit, f0b, 2026-11-02, 21d
-    Banco de software (fake_base, LIMO)     :f0c, 2026-11-09, 21d
+    Banco de software (fake_base, CI)       :f0c, 2026-11-09, 21d
     section Fase 1 · Se mueve
     Corte de placas + impresión v1          :f1a, 2026-11-23, 21d
     Armado tren motriz + flipper            :f1b, after f1a, 14d
@@ -121,14 +124,14 @@ Detalle en [hardware/bom.md](../../hardware/bom.md). Resumen (USD, orientativo):
 | Contingencia | ≈ 300 |
 | **Total** | **≈ 3 900** |
 
-Hay **plan B para cada ítem caro** (ver la BOM): con el LiDAR 2D y la Jetson Nano que el equipo ya tiene
-se puede arrancar mientras llegan las compras.
+Hay **plan B de menor costo para los ítems caros** (ver la BOM). Mientras llegan las compras, el software se
+desarrolla con el simulador de la placa base (`tools/fake_base.py`) y la CI: no hace falta hardware.
 
 ## 6. Riesgos principales
 
 | # | Riesgo | Prob. | Impacto | Mitigación |
 |---|---|---|---|---|
-| R1 | Las compras importadas demoran más de 6 semanas | Alta | Alto | Comprar LiDAR, Jetson y motores en la **semana 1**. Plan B con hardware existente |
+| R1 | Las compras importadas demoran más de 6 semanas | Alta | Alto | Comprar LiDAR, Jetson y motores en la **semana 1**. Desarrollo con `fake_base` mientras tanto |
 | R2 | Los tacos de TPU se despegan de la correa | Media | Alto | Probar 3 métodos de fijación en el mes 1; plan B: correa con tacos soldados de fábrica |
 | R3 | El flipper no levanta el robot (torque, patinamiento de correa) | Media | Alto | Prueba en banco con pesas en H1; reductora 56 mm 1:264 + correa 2.14:1 con margen 1.6×; plan B 1:369 |
 | R4 | El Wi-Fi se cae en la competencia (radio degradada) | Alta | Alto | Autonomía que sigue sin enlace; video comprimido; prácticas con la caja de degradación (5 Mbps, 10 % de pérdida, 100 ms) |
@@ -137,6 +140,7 @@ se puede arrancar mientras llegan las compras.
 | R7 | Pocas horas de práctica de los operadores | Alta | Alto | Día de pista semanal desde H1 y rotación de operadores |
 | R8 | El modelo hazmat falla con la iluminación del lugar | Media | Medio | Dataset con aumentaciones fuertes; recolectar imágenes en el lugar el día 1 y re-entrenar |
 | R9 | Gente que deja el equipo a mitad de año | Media | Alto | Dos personas por subsistema; todo documentado en este repo |
+| R10 | El reglamento 2027 cambia pruebas o formatos | Alta | Medio | Revisar cada borrador apenas sale; el diseño cubre las pruebas estándar del NIST que se repiten cada año |
 
 ## 7. Logística de viaje (no dejar para el final)
 
@@ -158,4 +162,5 @@ se puede arrancar mientras llegan las compras.
 | 31/10/2026 | ESP32-S3 + protocolo COBS/CRC propio (no micro-ROS) | Depurable, testeable en PC, sin dependencias en el MCU |
 | 31/10/2026 | Livox Mid-360 + FAST-LIO | El PLY 3D del laberinto puntúa la mitad del mapeo; LIO funciona en rampas |
 | 31/10/2026 | Brazo con servos STS3215 (bus serie) | Baratos, con realimentación; misma familia que SO-100/SO-101 para practicar |
-| 31/10/2026 | ROS 2 Humble en el Jetson (JetPack 6) | Versión soportada en Ubuntu 22.04; el código también compila en Jazzy (CI) |
+| 31/10/2026 | ROS 2 **Jazzy** (no Humble) | Humble termina su soporte en mayo de 2027, antes de la competencia; Jazzy es LTS hasta 2029 |
+| 31/10/2026 | Proyecto desde cero, sin heredar robots ni código anteriores | Lo previo del equipo quedó desactualizado para 2027 |

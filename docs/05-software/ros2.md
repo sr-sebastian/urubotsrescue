@@ -1,6 +1,7 @@
 # Software ROS 2
 
-Workspace: [`ros2_ws/src/`](../../ros2_ws/src/). Probado con **ROS 2 Humble** (Jetson) y **Jazzy** (CI).
+Workspace: [`ros2_ws/src/`](../../ros2_ws/src/). Objetivo: **ROS 2 Jazzy** (LTS, soporte hasta mayo de 2029). La CI compila y corre los tests en Jazzy.
+> No usar Humble: termina su soporte en **mayo de 2027**, justo antes de las competencias.
 
 | Paquete | Tipo | Qué hace |
 |---|---|---|

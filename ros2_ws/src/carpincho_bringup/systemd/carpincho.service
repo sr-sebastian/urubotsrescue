@@ -11,7 +11,9 @@ User=carpincho
 Environment=ROS_DOMAIN_ID=42
 Environment=RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
 Environment=CYCLONEDDS_URI=file:///home/carpincho/ros2_ws/install/carpincho_bringup/share/carpincho_bringup/config/cyclonedds.xml
-ExecStart=/bin/bash -lc "source /opt/ros/humble/setup.bash && source /home/carpincho/ros2_ws/install/setup.bash && ros2 launch carpincho_bringup robot.launch.py"
+# Nativo (Ubuntu 24.04 + Jazzy). Si usás Docker (JetPack 6), reemplazar por:
+#   ExecStart=/usr/bin/docker exec carpincho bash -lc "source /opt/ros/jazzy/setup.bash && source /ros2_ws/install/setup.bash && ros2 launch carpincho_bringup robot.launch.py"
+ExecStart=/bin/bash -lc "source /opt/ros/jazzy/setup.bash && source /home/carpincho/ros2_ws/install/setup.bash && ros2 launch carpincho_bringup robot.launch.py"
 Restart=on-failure
 RestartSec=3
 KillSignal=SIGINT

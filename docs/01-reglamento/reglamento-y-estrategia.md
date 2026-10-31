@@ -1,17 +1,17 @@
 # Reglamento y estrategia de puntaje
 
-Fuente principal: **RoboCup Rescue Robot League, reglamento 2026D** (versión del 3/6/2026,
-[rrl.robocup.org](https://rrl.robocup.org)). El reglamento cambia todos los años: **antes de cada
-decisión importante, revisar la versión vigente**. Lo que sigue es un resumen de trabajo, no lo reemplaza.
+> **Objetivo: temporada 2027.** Al 31/10/2026 el último reglamento publicado de la RoboCup Rescue Robot League es
+> el **2026D** (3/6/2026, [rrl.robocup.org](https://rrl.robocup.org)), y lo que sigue lo resume. El reglamento
+> **2027** cambia: cuando salga cada borrador, actualizar este documento y la matriz de requisitos, y marcar
+> qué cambió. Las pruebas de base (estándar del NIST: carriles, escaleras, destreza, cajón de víctimas,
+> laberinto) se repiten año a año, y por eso el diseño apunta a ellas y no a detalles de una edición.
 
-> **FIRA**: hasta 2026, la "Emergency Service" de FIRA se jugó con drones (FIRA Air). Si en 2027 se abre
-> una categoría de rescate terrestre, sus pruebas probablemente se inspiren en las mismas pruebas estándar
-> del NIST que usa RoboCup. **Acción**: apenas se publiquen las reglas FIRA 2027, completar la tabla de la
-> sección 6 y ajustar prioridades.
+> **FIRA 2027**: completar la tabla de la sección 6 apenas se publiquen las reglas (categorías, tamaños,
+> pruebas y formato de entrega) y ajustar prioridades.
 
 ## 1. Lo esencial
 
-| Tema | Regla (2026D) | Qué implica para el Carpincho |
+| Tema | Regla (2026D, a confirmar para 2027) | Qué implica para el Carpincho |
 |---|---|---|
 | Peso | < 80 kg; asas seguras obligatorias | 17 kg estimados; 2 asas CH-09 |
 | E-stop | Obligatorio | Hongo NC que corta motores y servos (ver electrónica) |

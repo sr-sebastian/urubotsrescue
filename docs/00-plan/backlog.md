@@ -6,7 +6,7 @@ corresponde, de qué otras tareas depende.
 
 ## Gestión
 
-- [ ] Confirmar fechas y reglas 2027 (RoboCup Rescue y FIRA): calificación, TDP, video y sede (F0)
+- [ ] Confirmar fechas y reglas **2027** (RoboCup Rescue y FIRA): calificación, TDP, video y sede; seguir cada borrador del reglamento (F0, y todo el año)
 - [ ] Armar el tablero de GitHub Projects con este backlog y asignar responsables (F0)
 - [ ] Pedir presupuesto a UTEC / sponsors con [hardware/bom.md](../../hardware/bom.md) (F0)
 - [ ] Hacer las compras largas: Livox Mid-360, Jetson Orin Nano, motores 775 (tracción 42 mm 1:51, flipper 56 mm 1:264), térmica y RGB-D (F0, **semana 1**)
@@ -57,7 +57,7 @@ corresponde, de qué otras tareas depende.
 ## Percepción
 
 - [ ] Dataset hazmat: imprimir el set oficial y sacar ≥ 3000 fotos con distintas luces, ángulos y distancias (F2)
-- [ ] Entrenar YOLOv8n/YOLO11n y exportar a TensorRT; meta: mAP50 ≥ 0.9 y ≥ 8 FPS en el Jetson (F2)
+- [ ] Entrenar el modelo nano vigente de Ultralytics (YOLO11n / YOLO26n o el que esté al día) y exportarlo a TensorRT; meta: mAP50 ≥ 0.9 y ≥ 8 FPS en el Jetson (F2)
 - [ ] Configurar la térmica (Y16) y verificar los anillos concéntricos con un calentador de manos (F2)
 - [ ] QR chicos: probar la cámara de la pinza a 10-30 cm; ajustar `upscale` (F2)
 - [ ] AprilTag 41h12 + ubicación en el mapa, con error < 0.3 m (F2)

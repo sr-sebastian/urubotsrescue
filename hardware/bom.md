@@ -6,7 +6,7 @@ Precios **orientativos en USD** (oct. 2026, sin envío ni impuestos). Antes de c
 
 | Subsistema | Ítem | Especificación | Cant. | USD c/u | USD total | Notas |
 |---|---|---|---:|---:|---:|---|
-| computo | Jetson Orin Nano Super Developer Kit 8GB | JetPack 6 (Ubuntu 22.04) | 1 | 249 | 249 | Corre ROS 2 Humble + YOLO (TensorRT) |
+| computo | Jetson Orin Nano Super Developer Kit 8GB | JetPack (ver setup-jetson) | 1 | 249 | 249 | ROS 2 Jazzy + YOLO (TensorRT). Revisar al comprar si hay un modelo más nuevo al mismo precio |
 | computo | SSD NVMe M.2 2280 256 GB | PCIe Gen3 | 1 | 30 | 30 | El sistema va en el NVMe (no en microSD) |
 | computo | ESP32-S3-DevKitC-1 N8R8 | USB nativo | 2 | 15 | 30 | 1 de repuesto ya flasheado |
 | potencia | Batería 6S2P 21700 (≈10 Ah) con BMS 40 A | 22.2 V nominal / 25.2 V cargada | 3 | 120 | 360 | 1 en uso + 1 cargando + 1 de reserva |
@@ -84,7 +84,7 @@ Precios **orientativos en USD** (oct. 2026, sin envío ni impuestos). Antes de c
 
 ## Si el presupuesto no alcanza
 
-- **LiDAR**: empezar con el EAI X2L / RPLIDAR que ya tiene el equipo (mapa 2D) y la cámara de profundidad para la nube 3D (RTAB-Map). Se pierde calidad en el PLY del laberinto.
+- **LiDAR**: un LiDAR 2D barato (≈ 100-200 USD) + la cámara de profundidad para la nube 3D (RTAB-Map). Se pierde calidad en el PLY del laberinto y FAST-LIO deja de servir en rampas.
 - **Térmica**: MLX90640 (32x24, ≈60 USD) por I2C. Alcanza para la firma de calor, pero es justo para los anillos concéntricos de la prueba de agudeza térmica.
-- **Cómputo**: la Jetson Nano del LIMO sirve para desarrollo (ROS 2 en contenedor), pero no da para FAST-LIO + YOLO a la vez.
+- **Cómputo**: no bajar de la clase Orin Nano: FAST-LIO + YOLO + cámaras a la vez necesitan GPU y 8 GB. Para desarrollar sirve cualquier PC con Ubuntu 24.04 + `tools/fake_base.py`.
 - **Brazo**: imprimir un SO-101 (también usa STS3215) para empezar a practicar destreza mientras se fabrica el C1.

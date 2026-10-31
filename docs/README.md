@@ -3,7 +3,7 @@
 | # | Sección | Documentos |
 |---|---|---|
 | 00 | **Plan** | [Plan maestro](00-plan/plan-maestro.md) (objetivo, cronograma, roles, presupuesto, riesgos, decisiones) · [Backlog](00-plan/backlog.md) |
-| 01 | **Reglamento** | [Reglamento y estrategia de puntaje](01-reglamento/reglamento-y-estrategia.md) (resumen 2026D, matriz de requisitos, FIRA) |
+| 01 | **Reglamento** | [Reglamento y estrategia de puntaje](01-reglamento/reglamento-y-estrategia.md) (objetivo 2027; base 2026D hasta que salga el nuevo; matriz de requisitos, FIRA) |
 | 02 | **Arquitectura** | [Arquitectura del sistema](02-arquitectura/arquitectura.md) (bloques, interfaces, grafo ROS, TF, estados y seguridad) |
 | 03 | **Mecánica** | [Diseño mecánico](03-mecanica/diseno-mecanico.md) · [Piezas](03-mecanica/piezas.md) *(generado)* · [Cálculos](03-mecanica/calculos.md) *(generado)* · [Masa y CG](../cad/out/masa_cg.md) *(generado)* |
 | 04 | **Electrónica** | [Electrónica, potencia y cableado](04-electronica/electronica.md) (E-stop, fusibles, pinout, arneses) · [BOM](../hardware/bom.md) |

@@ -4,7 +4,7 @@ qr_gripper:
   ros__parameters: {max_rate: 10.0, upscale: 1.5}    # QR chicos de las tareas de inspección
 hazmat:
   ros__parameters:
-    model_path: /home/carpincho/modelos/hazmat_yolov8n.engine   # TensorRT (o .pt)
+    model_path: /home/carpincho/modelos/hazmat_yolo_n.engine   # TensorRT (o .pt)
     conf: 0.5
     imgsz: 640
     device: "0"

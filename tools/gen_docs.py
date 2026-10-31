@@ -76,12 +76,12 @@ def gen_bom() -> None:
         lines.append(f"| {k} | {v:.0f} |")
     lines += [f"| **Total** | **{tot:.0f}** |", "",
               "## Si el presupuesto no alcanza", "",
-              "- **LiDAR**: empezar con el EAI X2L / RPLIDAR que ya tiene el equipo (mapa 2D) y la cámara de "
-              "profundidad para la nube 3D (RTAB-Map). Se pierde calidad en el PLY del laberinto.",
+              "- **LiDAR**: un LiDAR 2D barato (≈ 100-200 USD) + la cámara de profundidad para la nube 3D "
+              "(RTAB-Map). Se pierde calidad en el PLY del laberinto y FAST-LIO deja de servir en rampas.",
               "- **Térmica**: MLX90640 (32x24, ≈60 USD) por I2C. Alcanza para la firma de calor, "
               "pero es justo para los anillos concéntricos de la prueba de agudeza térmica.",
-              "- **Cómputo**: la Jetson Nano del LIMO sirve para desarrollo (ROS 2 en contenedor), "
-              "pero no da para FAST-LIO + YOLO a la vez.",
+              "- **Cómputo**: no bajar de la clase Orin Nano: FAST-LIO + YOLO + cámaras a la vez necesitan GPU y "
+              "8 GB. Para desarrollar sirve cualquier PC con Ubuntu 24.04 + `tools/fake_base.py`.",
               "- **Brazo**: imprimir un SO-101 (también usa STS3215) para empezar a practicar destreza mientras se "
               "fabrica el C1."]
     (ROOT / "hardware/bom.md").write_text("\n".join(lines) + "\n", encoding="utf-8")

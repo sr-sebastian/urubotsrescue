@@ -25,11 +25,12 @@
 2. **Anotar** (Roboflow o CVAT), con una clase por etiqueta y el nombre exacto que pide el reglamento.
 3. **Entrenar** en una PC con GPU o en Colab:
    ```bash
-   yolo detect train model=yolov8n.pt data=hazmat.yaml imgsz=640 epochs=150 \
+   # modelo nano de la versión vigente de Ultralytics (p. ej. yolo11n.pt / yolo26n.pt): usar el más nuevo estable
+   yolo detect train model=yolo11n.pt data=hazmat.yaml imgsz=640 epochs=150 \
         mosaic=1.0 degrees=25 perspective=0.0008 hsv_v=0.5 erasing=0.4
    ```
    Meta: mAP50 ≥ 0.90 en validación **con fotos tomadas en otro día y con otra luz**.
-4. **Exportar a TensorRT en el Jetson** (`format=engine half=True`) → ≈ 15-25 FPS con yolov8n.
+4. **Exportar a TensorRT en el Jetson** (`format=engine half=True`) → medir los FPS reales en el Jetson (meta ≥ 8).
 5. En la competencia: el día 1, sacar 200 fotos en la arena real y hacer un *fine-tune* de 20 épocas.
 
 ## Movimiento (`motion_detector`)

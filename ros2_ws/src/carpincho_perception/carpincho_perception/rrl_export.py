@@ -1,4 +1,4 @@
-"""Exportación de resultados con el formato del reglamento RoboCup Rescue (2026).
+"""Exportación de resultados con el formato del reglamento RoboCup Rescue (base 2026D: verificar contra el de 2027).
 
 - CSV de objetos identificados  (RoboCup[Año]-[Equipo]-[Misión]-[HH-MM-SS]-pois.csv)
 - Nube de puntos PLY ASCII       (RoboCup[Año]-[Equipo]-[Misión]-[HH-MM-SS]-map.ply)

@@ -22,7 +22,7 @@ from .common import BRIDGE, draw, make_detection, to_bgr
 class HazmatDetector(Node):
     def __init__(self) -> None:
         super().__init__("hazmat_detector")
-        self.model_path = self.declare_parameter("model_path", "hazmat_yolov8n.pt").value
+        self.model_path = self.declare_parameter("model_path", "hazmat_yolo_n.pt").value
         self.conf = self.declare_parameter("conf", 0.5).value
         self.imgsz = self.declare_parameter("imgsz", 640).value
         self.device = self.declare_parameter("device", "0").value

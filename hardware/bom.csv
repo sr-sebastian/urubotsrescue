@@ -1,5 +1,5 @@
 subsistema,item,especificacion,cantidad,usd_unit,proveedor_sugerido,notas
-computo,Jetson Orin Nano Super Developer Kit 8GB,JetPack 6 (Ubuntu 22.04),1,249,NVIDIA / distribuidor oficial,Corre ROS 2 Humble + YOLO (TensorRT)
+computo,Jetson Orin Nano Super Developer Kit 8GB,JetPack (ver setup-jetson),1,249,NVIDIA / distribuidor oficial,ROS 2 Jazzy + YOLO (TensorRT). Revisar al comprar si hay un modelo más nuevo al mismo precio
 computo,SSD NVMe M.2 2280 256 GB,PCIe Gen3,1,30,local,El sistema va en el NVMe (no en microSD)
 computo,ESP32-S3-DevKitC-1 N8R8,USB nativo,2,15,Espressif / AliExpress,1 de repuesto ya flasheado
 potencia,Batería 6S2P 21700 (≈10 Ah) con BMS 40 A,22.2 V nominal / 25.2 V cargada,3,120,armado local o comercial,1 en uso + 1 cargando + 1 de reserva

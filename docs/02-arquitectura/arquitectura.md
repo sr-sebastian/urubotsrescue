@@ -12,7 +12,7 @@ flowchart LR
     subgraph RADIO["Wi-Fi 5 GHz dedicado"]
         R1((router<br/>operador)) <--> R2((router<br/>robot))
     end
-    subgraph JET["Jetson Orin Nano · ROS 2 Humble"]
+    subgraph JET["Jetson Orin Nano · ROS 2 Jazzy"]
         BB[base_bridge]
         ARM[arm_driver]
         LIO[FAST-LIO + odom_relay]
