@@ -53,7 +53,7 @@ class BaseBridge(Node):
         self.port = p("port", "/dev/carpincho_base").value
         self.baud = p("baud", 921600).value
         self.geom = TrackGeometry(p("track_separation", 0.275).value, p("slip_factor", 1.6).value)
-        self.v_max = p("max_speed", 0.7).value
+        self.v_max = p("max_speed", 0.4).value
         self.cmd_timeout = p("cmd_timeout", 0.5).value
         self.publish_tf = p("publish_tf", True).value
         self.use_imu_yaw = p("use_imu_yaw", True).value
@@ -62,7 +62,7 @@ class BaseBridge(Node):
         self.imu_frame = p("imu_frame", "imu_link").value
         self.flip_joint = p("flipper_joint", "flipper_joint").value
         self.auto_enable = p("auto_enable", False).value
-        self.pid = [p(k, v).value for k, v in (("kp", 0.8), ("ki", 4.0), ("kff", 1.333), ("max_accel", 1.5),
+        self.pid = [p(k, v).value for k, v in (("kp", 0.8), ("ki", 4.0), ("kff", 2.38), ("max_accel", 1.0),
                                                 ("flip_kp", 3.0), ("flip_max_vel", 1.5))]
 
         self.odom = Odometry()
@@ -81,7 +81,7 @@ class BaseBridge(Node):
         self.prev_enc = None
         self.yaw0 = None
         self.imu_yaw = None
-        self.counts_per_m = p("counts_per_m", 7 * 4 * 27 * 1.5 / (math.pi * 0.09549)).value
+        self.counts_per_m = p("counts_per_m", 7 * 4 * 51 * 1.5 / (math.pi * 0.09549)).value
         self.enc_sign = (-1.0 if p("invert_left_encoder", False).value else 1.0,
                          -1.0 if p("invert_right_encoder", True).value else 1.0)
 
@@ -172,6 +172,11 @@ class BaseBridge(Node):
             self.odom.update(dl, dr, self.geom, yaw)
         self.prev_enc = (s.enc_left, s.enc_right)
         self.last_state = s
+        if s.faults & 0x80 and self.enabled:
+            # el firmware se desarma solo con el E-stop; acá también, para que al soltar el hongo
+            # el robot NO arranque hasta que el operador vuelva a armar (START)
+            self.enabled = False
+            self.get_logger().warn("E-STOP apretado: motores desarmados (re-armar con START)")
 
         v, w = tracks_to_twist(s.v_left, s.v_right, self.geom)
         od = OdometryMsg()

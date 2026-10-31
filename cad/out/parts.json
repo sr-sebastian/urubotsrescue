@@ -1,7 +1,6 @@
 {
  "robot": "Carpincho",
  "code": "URB-R1",
- "generated": "2026-10-31",
  "summary": {
   "axle_dist": 400.0,
   "axle_z": 58.4,
@@ -15,11 +14,11 @@
   "y_track_c": 137.5,
   "y_flip_c": 171.5
  },
- "mass_total_kg": 16.84,
+ "mass_total_kg": 16.5,
  "cg_mm": [
-  28.0,
-  0.6,
-  112.3
+  29.2,
+  1.0,
+  113.1
  ],
  "groups": {
   "chasis": "Chasis y estructura",
@@ -51,7 +50,7 @@
     "stl": "cad/out/stl/CH-01.stl",
     "dxf": "cad/out/dxf/CH-01.dxf"
    },
-   "mass_g_unit": 740.8,
+   "mass_g_unit": 741.1,
    "instances": [
     {
      "node": "CH-01_L",
@@ -131,13 +130,13 @@
     "stl": "cad/out/stl/CH-03.stl",
     "dxf": "cad/out/dxf/CH-03.dxf"
    },
-   "mass_g_unit": 812.0,
+   "mass_g_unit": 776.9,
    "instances": [
     {
      "node": "CH-03",
      "center": [
-      -0.0,
-      0.0,
+      2.9,
+      1.4,
       31.5
      ]
     }
@@ -163,7 +162,7 @@
     "stl": "cad/out/stl/CH-04.stl",
     "dxf": "cad/out/dxf/CH-04.dxf"
    },
-   "mass_g_unit": 540.7,
+   "mass_g_unit": 540.8,
    "instances": [
     {
      "node": "CH-04",
@@ -227,14 +226,14 @@
     "stl": "cad/out/stl/CH-06.stl",
     "dxf": "cad/out/dxf/CH-06.dxf"
    },
-   "mass_g_unit": 270.2,
+   "mass_g_unit": 270.1,
    "instances": [
     {
      "node": "CH-06",
      "center": [
       -237.5,
       -0.3,
-      108.3
+      109.7
      ]
     }
    ]
@@ -250,17 +249,17 @@
    "notes": "La pieza se modela con la cara contra la placa lateral; ver guía de armado.",
    "bought": false,
    "bbox_mm": [
-    410.0,
+    300.0,
     20.0,
     20.0
    ],
    "files": {},
-   "mass_g_unit": 84.1,
+   "mass_g_unit": 61.6,
    "instances": [
     {
      "node": "CH-07_LB",
      "center": [
-      0.0,
+      -0.0,
       109.3,
       38.7
      ]
@@ -268,7 +267,7 @@
     {
      "node": "CH-07_RB",
      "center": [
-      0.0,
+      -0.0,
       -109.3,
       38.7
      ]
@@ -276,7 +275,7 @@
     {
      "node": "CH-07_LT",
      "center": [
-      -0.0,
+      0.0,
       109.3,
       184.3
      ]
@@ -284,7 +283,7 @@
     {
      "node": "CH-07_RT",
      "center": [
-      -0.0,
+      0.0,
       -109.3,
       184.3
      ]
@@ -315,7 +314,7 @@
     {
      "node": "CH-08_L",
      "center": [
-      -150.0,
+      -140.0,
       137.5,
       80.0
      ]
@@ -323,7 +322,7 @@
     {
      "node": "CH-08_R",
      "center": [
-      -150.0,
+      -140.0,
       -137.5,
       80.0
      ]
@@ -750,58 +749,58 @@
    "bbox_mm": [
     70.0,
     60.0,
-    92.0
+    79.0
    ],
    "files": {
     "step": "cad/out/step/DT-08.step",
     "stl": "cad/out/stl/DT-08.stl"
    },
-   "mass_g_unit": 64.7,
+   "mass_g_unit": 59.0,
    "instances": [
     {
      "node": "DT-08_L",
      "center": [
       -117.0,
-      62.3,
-      62.6
+      61.2,
+      57.3
      ]
     },
     {
      "node": "DT-08_R",
      "center": [
       -52.6,
-      -62.3,
-      62.6
+      -61.2,
+      57.3
      ]
     }
    ]
   },
   {
    "code": "DT-09",
-   "name": "Polea 18T motor de flipper (HTD5M 15)",
+   "name": "Polea 14T motor de flipper (HTD5M 15)",
    "group": "flipper",
    "group_name": "Flippers",
-   "material": "PLA-CF",
-   "process": "Impresión 3D o Al comercial 18-5M-15",
+   "material": "Al",
+   "process": "Al comercial 14-5M-15 (14T impresa no aguanta), bore 12 + chavetero",
    "qty": 1,
    "notes": "",
    "bought": false,
    "bbox_mm": [
-    34.4,
-    34.4,
+    28.0,
+    28.0,
     28.0
    ],
    "files": {
     "step": "cad/out/step/DT-09.step",
     "stl": "cad/out/stl/DT-09.stl"
    },
-   "mass_g_unit": 9.1,
+   "mass_g_unit": 11.8,
    "instances": [
     {
      "node": "DT-09",
      "center": [
-      92.7,
-      -92.1,
+      121.3,
+      -91.0,
       110.0
      ]
     }
@@ -809,30 +808,30 @@
   },
   {
    "code": "DT-10",
-   "name": "Polea 54T tubo de flipper (HTD5M 15)",
+   "name": "Polea 30T tubo de flipper (HTD5M 15)",
    "group": "flipper",
    "group_name": "Flippers",
    "material": "PLA-CF",
    "process": "Impresión 3D PLA-CF 6 perímetros 60%",
    "qty": 1,
-   "notes": "Pasador M5 pasante por el tubo (agujero ø5.2).",
+   "notes": "Cubo hacia el centro del robot. Pasador M5 pasante por el tubo (agujero ø5.2).",
    "bought": false,
    "bbox_mm": [
-    91.7,
-    91.7,
+    53.5,
+    53.5,
     34.0
    ],
    "files": {
     "step": "cad/out/step/DT-10.step",
     "stl": "cad/out/stl/DT-10.stl"
    },
-   "mass_g_unit": 89.3,
+   "mass_g_unit": 26.6,
    "instances": [
     {
      "node": "DT-10",
      "center": [
       200.0,
-      -91.6,
+      -86.0,
       58.4
      ]
     }
@@ -849,22 +848,22 @@
    "notes": "",
    "bought": false,
    "bbox_mm": [
-    70.0,
+    84.0,
     60.0,
-    117.0
+    111.0
    ],
    "files": {
     "step": "cad/out/step/DT-11.step",
     "stl": "cad/out/stl/DT-11.stl"
    },
-   "mass_g_unit": 79.0,
+   "mass_g_unit": 87.7,
    "instances": [
     {
      "node": "DT-11",
      "center": [
-      92.7,
-      -63.5,
-      72.4
+      121.3,
+      -63.0,
+      68.9
      ]
     }
    ]
@@ -907,7 +906,7 @@
   },
   {
    "code": "REF-M2",
-   "name": "Motorreductor 775 24V planetario 42mm (flipper)",
+   "name": "Motorreductor 775 24V planetario 56mm 1:264 (flipper)",
    "group": "referencia",
    "group_name": "Componentes comprados (referencia)",
    "material": "motor",
@@ -916,9 +915,9 @@
    "notes": "",
    "bought": true,
    "bbox_mm": [
-    44.5,
-    44.5,
-    167.0
+    56.0,
+    56.0,
+    187.0
    ],
    "files": {},
    "mass_g_unit": 750.0,
@@ -926,8 +925,8 @@
     {
      "node": "REF-M2",
      "center": [
-      92.7,
-      -3.0,
+      121.3,
+      -3.8,
       110.0
      ]
     }
@@ -1271,29 +1270,29 @@
    "bought": false,
    "bbox_mm": [
     62.0,
-    62.0,
+    55.4,
     13.0
    ],
    "files": {
     "step": "cad/out/step/FL-05.step",
     "stl": "cad/out/stl/FL-05.stl"
    },
-   "mass_g_unit": 11.9,
+   "mass_g_unit": 11.4,
    "instances": [
     {
      "node": "FL-05_L",
      "center": [
       200.0,
-      110.8,
-      58.4
+      110.7,
+      59.7
      ]
     },
     {
      "node": "FL-05_R",
      "center": [
       200.0,
-      -110.8,
-      58.4
+      -110.7,
+      59.7
      ]
     }
    ]
@@ -1446,14 +1445,14 @@
     "step": "cad/out/step/AR-01.step",
     "stl": "cad/out/stl/AR-01.stl"
    },
-   "mass_g_unit": 103.6,
+   "mass_g_unit": 99.7,
    "instances": [
     {
      "node": "AR-01",
      "center": [
-      151.2,
+      151.1,
       -0.0,
-      209.5
+      209.3
      ]
     }
    ]
@@ -1466,32 +1465,32 @@
    "material": "PLA-CF",
    "process": "Impresión 3D PLA-CF 6 per. 60%",
    "qty": 1,
-   "notes": "2x 608-2RS eje hombro. 2 servos J2 en paralelo, GT2 20T->60T (3:1), correa 160 mm.",
+   "notes": "2x 608-2RS eje hombro. 2 servos J2 en paralelo, GT2 20T->40T (2:1), correa cerrada GT2-6 de 140 mm.",
    "bought": false,
    "bbox_mm": [
     104.0,
-    152.0,
+    164.0,
     69.0
    ],
    "files": {
     "step": "cad/out/step/AR-02.step",
     "stl": "cad/out/stl/AR-02.stl"
    },
-   "mass_g_unit": 191.8,
+   "mass_g_unit": 122.0,
    "instances": [
     {
      "node": "AR-02",
      "center": [
-      143.6,
+      146.9,
       0.0,
-      251.1
+      252.3
      ]
     }
    ]
   },
   {
    "code": "AR-03",
-   "name": "Cubo del hombro (2x GT2 60T)",
+   "name": "Cubo del hombro (2x GT2 40T)",
    "group": "brazo",
    "group_name": "Brazo manipulador",
    "material": "PLA-CF",
@@ -1500,20 +1499,20 @@
    "notes": "Eje 8 mm acero; tubo pegado con epoxi + pasador M3.",
    "bought": false,
    "bbox_mm": [
-    37.0,
-    95.0,
-    61.5
+    32.0,
+    96.0,
+    59.0
    ],
    "files": {
     "step": "cad/out/step/AR-03.step",
     "stl": "cad/out/stl/AR-03.stl"
    },
-   "mass_g_unit": 53.7,
+   "mass_g_unit": 47.0,
    "instances": [
     {
      "node": "AR-03",
      "center": [
-      146.6,
+      146.1,
       0.0,
       279.0
      ]
@@ -1556,32 +1555,32 @@
    "material": "PLA-CF",
    "process": "Impresión 3D PLA-CF 6 per. 60%",
    "qty": 1,
-   "notes": "GT2 20T (horn) -> 60T (cubo codo), correa 200 mm con tensor.",
+   "notes": "GT2 20T (horn) -> 40T (cubo codo), correa cerrada GT2-6 ≈172 mm: ajustar la posición del servo al largo comercial que consigas.",
    "bought": false,
    "bbox_mm": [
     61.2,
-    111.0,
+    118.0,
     80.4
    ],
    "files": {
     "step": "cad/out/step/AR-04.step",
     "stl": "cad/out/stl/AR-04.stl"
    },
-   "mass_g_unit": 139.9,
+   "mass_g_unit": 109.8,
    "instances": [
     {
      "node": "AR-04",
      "center": [
-      -59.6,
-      17.3,
-      282.8
+      -60.8,
+      8.4,
+      280.8
      ]
     }
    ]
   },
   {
    "code": "AR-05a",
-   "name": "Cubo del codo (GT2 60T)",
+   "name": "Cubo del codo (GT2 40T)",
    "group": "brazo",
    "group_name": "Brazo manipulador",
    "material": "PLA-CF",
@@ -1590,22 +1589,22 @@
    "notes": "",
    "bought": false,
    "bbox_mm": [
-    37.0,
-    74.0,
-    58.5
+    30.0,
+    58.0,
+    55.0
    ],
    "files": {
     "step": "cad/out/step/AR-05a.step",
     "stl": "cad/out/stl/AR-05a.stl"
    },
-   "mass_g_unit": 41.0,
+   "mass_g_unit": 29.5,
    "instances": [
     {
      "node": "AR-05a",
      "center": [
-      -106.2,
-      5.6,
-      279.7
+      -105.9,
+      3.5,
+      282.4
      ]
     }
    ]
@@ -1631,9 +1630,9 @@
     {
      "node": "AR-09",
      "center": [
-      -12.0,
+      -33.8,
       -0.0,
-      296.3
+      343.0
      ]
     }
    ]
@@ -1649,22 +1648,22 @@
    "notes": "",
    "bought": false,
    "bbox_mm": [
-    41.0,
-    40.0,
-    72.6
+    54.2,
+    45.1,
+    77.4
    ],
    "files": {
     "step": "cad/out/step/AR-05b.step",
     "stl": "cad/out/stl/AR-05b.stl"
    },
-   "mass_g_unit": 55.5,
+   "mass_g_unit": 36.7,
    "instances": [
     {
      "node": "AR-05b",
      "center": [
-      99.0,
-      2.1,
-      315.9
+      56.6,
+      -2.6,
+      411.6
      ]
     }
    ]
@@ -1680,22 +1679,22 @@
    "notes": "",
    "bought": false,
    "bbox_mm": [
-    46.0,
-    50.7,
-    64.0
+    62.2,
+    54.5,
+    94.0
    ],
    "files": {
     "step": "cad/out/step/AR-06.step",
     "stl": "cad/out/stl/AR-06.stl"
    },
-   "mass_g_unit": 45.7,
+   "mass_g_unit": 46.4,
    "instances": [
     {
      "node": "AR-06",
      "center": [
-      151.7,
-      0.0,
-      311.5
+      108.1,
+      -3.4,
+      423.4
      ]
     }
    ]
@@ -1711,22 +1710,22 @@
    "notes": "Ranura en V en los dedos para tomar el eje de 6 mm de la herramienta (tarea INSERT).",
    "bought": false,
    "bbox_mm": [
-    75.0,
-    40.0,
-    95.0
+    94.3,
+    59.2,
+    74.0
    ],
    "files": {
     "step": "cad/out/step/AR-07.step",
     "stl": "cad/out/stl/AR-07.stl"
    },
-   "mass_g_unit": 54.9,
+   "mass_g_unit": 56.0,
    "instances": [
     {
      "node": "AR-07",
      "center": [
-      201.7,
-      -0.0,
-      297.6
+      177.0,
+      3.5,
+      408.5
      ]
     }
    ]
@@ -1750,7 +1749,7 @@
    "mass_g_unit": 55.0,
    "instances": [
     {
-     "node": "REF-SV_0",
+     "node": "REF-SV_J1",
      "center": [
       161.2,
       0.0,
@@ -1758,51 +1757,51 @@
      ]
     },
     {
-     "node": "REF-SV_1",
+     "node": "REF-SV_J2a",
      "center": [
       136.2,
-      25.1,
+      60.9,
       249.0
      ]
     },
     {
-     "node": "REF-SV_2",
+     "node": "REF-SV_J2b",
      "center": [
       136.2,
-      -25.1,
+      -60.9,
       249.0
      ]
     },
     {
-     "node": "REF-SV_3",
+     "node": "REF-SV_J3",
      "center": [
       -55.0,
-      21.1,
+      58.9,
       290.2
      ]
     },
     {
-     "node": "REF-SV_4",
+     "node": "REF-SV_J4",
      "center": [
-      128.3,
+      81.1,
       -4.0,
-      309.6
+      424.7
      ]
     },
     {
-     "node": "REF-SV_5",
+     "node": "REF-SV_J5",
      "center": [
-      187.2,
+      131.1,
       0.0,
-      286.6
+      411.8
      ]
     },
     {
-     "node": "REF-SV_6",
+     "node": "REF-SV_J6",
      "center": [
-      178.1,
+      173.4,
       11.2,
-      301.8
+      381.2
      ]
     }
    ]
@@ -1820,20 +1819,20 @@
    "bbox_mm": [
     196.0,
     224.0,
-    88.0
+    86.0
    ],
    "files": {
     "step": "cad/out/step/MT-01.step",
     "stl": "cad/out/stl/MT-01.stl"
    },
-   "mass_g_unit": 115.0,
+   "mass_g_unit": 114.6,
    "instances": [
     {
      "node": "MT-01",
      "center": [
-      -30.0,
+      -28.8,
       -0.0,
-      112.5
+      112.8
      ]
     }
    ]
@@ -1862,7 +1861,7 @@
     {
      "node": "MT-02",
      "center": [
-      17.0,
+      25.0,
       0.0,
       41.3
      ]
@@ -1911,7 +1910,7 @@
    "notes": "",
    "bought": false,
    "bbox_mm": [
-    41.0,
+    37.0,
     160.0,
     73.0
    ],
@@ -1919,14 +1918,14 @@
     "step": "cad/out/step/MT-04.step",
     "stl": "cad/out/stl/MT-04.stl"
    },
-   "mass_g_unit": 84.0,
+   "mass_g_unit": 72.6,
    "instances": [
     {
      "node": "MT-04",
      "center": [
-      206.9,
-      0.0,
-      214.4
+      227.7,
+      -0.0,
+      214.0
      ]
     }
    ]
@@ -2014,7 +2013,7 @@
     {
      "node": "REF-BAT",
      "center": [
-      17.0,
+      25.0,
       -0.0,
       61.0
      ]
@@ -2070,7 +2069,7 @@
     {
      "node": "REF-DEP",
      "center": [
-      210.0,
+      225.0,
       -0.0,
       233.5
      ]
@@ -2098,7 +2097,7 @@
     {
      "node": "REF-THM",
      "center": [
-      210.0,
+      225.0,
       62.0,
       234.0
      ]
@@ -2296,7 +2295,7 @@
      "center": [
       150.0,
       103.0,
-      149.0
+      136.0
      ]
     }
    ]
@@ -2324,7 +2323,7 @@
      "center": [
       180.0,
       -103.0,
-      148.0
+      135.0
      ]
     }
    ]

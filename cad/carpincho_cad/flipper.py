@@ -52,6 +52,9 @@ def bearing_housing() -> cq.Workplane:
     fl = cq.Workplane("XY").circle(31).extrude(4)
     boss = cq.Workplane("XY").circle(21).extrude(9).translate((0, 0, 4))
     h = fl.union(boss)
+    # bajo: el eje está a 58 mm del piso y el piso del cuerpo a 33 -> brida recortada abajo
+    flat = -(P.AXLE_Z - P.BODY_BOTTOM_Z - P.FLOOR_T - 1.0)
+    h = h.cut(cq.Workplane("XY").center(0, flat - 30).rect(80, 60).extrude(13))
     h = h.cut(cq.Workplane("XY").circle(16.0).extrude(13).translate((0, 0, 4 - 0.01)))   # asiento 7 + juego
     h = h.cut(cq.Workplane("XY").circle(12.0).extrude(4))
     h = h.cut(cq.Workplane("XY").polarArray(23, 90, 360, 3).circle(2.2).extrude(4))

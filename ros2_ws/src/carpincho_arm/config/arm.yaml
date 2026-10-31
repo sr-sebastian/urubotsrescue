@@ -10,17 +10,17 @@ arm_driver:
     h0: 0.085
     l1: 0.260
     l2: 0.240
-    l3: 0.140
+    l3: 0.155
     arm_j1: {ids: [1], ratio: 1.0, signs: [1], zeros: [2048], min: -2.967, max: 2.967}
     # hombro: 2 servos en paralelo, montados espejados -> signos opuestos. GT2 20T->40T = 2:1
     arm_j2: {ids: [2, 3], ratio: 2.0, signs: [1, -1], zeros: [2096, 2000], min: -1.571, max: 1.484}
-    arm_j3: {ids: [4], ratio: 2.0, signs: [1], zeros: [164], min: -0.087, max: 2.967}
-    arm_j4: {ids: [5], ratio: 1.0, signs: [1], zeros: [2048], min: -1.920, max: 1.920}
+    arm_j3: {ids: [4], ratio: 2.0, signs: [1], zeros: [164], min: -0.087, max: 2.443}   # 140°: más plegado choca con el codo
+    arm_j4: {ids: [5], ratio: 1.0, signs: [1], zeros: [2048], min: -1.745, max: 1.745}
     arm_j5: {ids: [6], ratio: 1.0, signs: [1], zeros: [2048], min: -3.1, max: 3.1}
     gripper: {id: 7, closed: 1500, open: 2600}
     pose_names: [stow, ready, inspect_front, inspect_high, inspect_floor, look_back, insert_ready]
     poses:                       # grados: J1, J2, J3, J4, J5
-      stow:          [0.0, -90.0, 170.0, 30.0, 0.0]     # guardado (obligatorio al empezar dexterity)
+      stow:          [0.0, -90.0, 140.0, 50.0, 0.0]     # guardado (obligatorio al empezar dexterity)
       ready:         [0.0, 20.0, 60.0, 10.0, 0.0]
       inspect_front: [0.0, 35.0, 55.0, 0.0, 0.0]        # cámara de pinza mirando al frente a ~60 cm
       inspect_high:  [0.0, 10.0, 35.0, 45.0, 0.0]       # carriles lineales altos

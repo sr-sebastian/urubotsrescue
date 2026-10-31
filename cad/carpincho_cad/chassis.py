@@ -12,9 +12,9 @@ ZA = P.AXLE_Z
 HALF = P.BODY_LEN / 2
 
 # posiciones (x, z) de separadores entre placa lateral y placa exterior (dentro del lazo)
-STANDOFFS_XZ = [(-150.0, 80.0), (-55.0, 82.0), (50.0, 82.0), (130.0, 80.0)]
+STANDOFFS_XZ = [(-140.0, 80.0), (-55.0, 82.0), (50.0, 82.0), (130.0, 80.0)]
 # filas de agujeros M4 para escuadras de piso/deck
-ANGLE_X = [-200.0, -120.0, -40.0, 40.0, 120.0, 200.0]
+ANGLE_X = [-140.0, -70.0, 0.0, 70.0, 140.0]
 Z_FLOOR_HOLES = P.BODY_BOTTOM_Z + P.FLOOR_T + 7.0
 Z_DECK_HOLES = P.BODY_TOP_Z - 7.0
 KFL_SPACING = 48.0          # rodamiento con brida KFL001 (eje 12): 2 agujeros M6 a 48 mm
@@ -79,6 +79,10 @@ def floor_plate() -> cq.Workplane:
     bx = P.BATTERY["pos"][0]
     pl = pl.cut(cq.Workplane("XY").pushPoints([(bx, 50), (bx, -50)]).slot2D(30, 5, 0).extrude(t))
     pl = pl.cut(cq.Workplane("XY").pushPoints([(-180, 0), (180, 0)]).circle(4).extrude(t))
+    # alivios para las poleas de 30T de las transmisiones internas (bajan hasta z≈31.7, el piso está en 30-33)
+    yb = 90.0
+    for x, y in ((-P.AXLE_DIST / 2, yb), (-P.AXLE_DIST / 2, -yb), (P.AXLE_DIST / 2, -yb)):
+        pl = pl.cut(cq.Workplane("XY").center(x, y).rect(64, 28).extrude(t))
     return pl
 
 
@@ -127,7 +131,7 @@ def bulkhead(front: bool) -> cq.Workplane:
         pl = pl.cut(cq.Workplane("YZ").pushPoints([(-60, 120), (60, 120)]).circle(9).extrude(t))  # pasacables
     else:
         # panel de conectores: XT60 carga, RJ45 pasamuro, interruptor principal, USB-C debug
-        pl = pl.cut(cq.Workplane("YZ").pushPoints([(-70, 110), (-20, 110), (35, 110), (80, 110)])
+        pl = pl.cut(cq.Workplane("YZ").pushPoints([(-70, 75), (-20, 75), (35, 75), (80, 75)])
                     .rect(22, 16).extrude(t))
         pl = pl.cut(cq.Workplane("YZ").center(0, P.CAM_REAR_POS[2] - P.BODY_BOTTOM_Z - P.FLOOR_T)
                     .rect(40, 30).extrude(t))
@@ -169,7 +173,7 @@ def roller_spacer() -> cq.Workplane:
 
 def parts() -> list[Part]:
     lr = lambda pos, rot=(0, 0, 0): [Placement(pos, rot, tag="L"), Placement(pos, rot, mirror_y=True, tag="R")]
-    ang_len = P.BODY_LEN - 2 * 40
+    ang_len = 300.0          # corta: no llega a los ejes ni a los alojamientos FL-05
     standoffs = []
     for x, z in STANDOFFS_XZ:
         standoffs += lr((x, P.Y_SIDE_OUT, z), (-90, 0, 0))

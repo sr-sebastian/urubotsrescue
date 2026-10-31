@@ -19,12 +19,12 @@ class ArmGeometry:
     h0: float = 0.085      # altura del eje J2 sobre arm_base_link [m]
     l1: float = 0.260
     l2: float = 0.240
-    l3: float = 0.140      # muñeca -> punta de herramienta (centro de los dedos)
+    l3: float = 0.155      # muñeca -> punta de herramienta (centro de los dedos)
     limits: dict = field(default_factory=lambda: {
         "j1": (-math.radians(170), math.radians(170)),
         "j2": (-math.radians(90), math.radians(85)),
-        "j3": (-math.radians(5), math.radians(170)),
-        "j4": (-math.radians(110), math.radians(110)),
+        "j3": (-math.radians(5), math.radians(140)),
+        "j4": (-math.radians(100), math.radians(100)),
         "j5": (-math.pi, math.pi),
     })
 

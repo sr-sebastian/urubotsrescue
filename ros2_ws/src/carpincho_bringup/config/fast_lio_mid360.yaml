@@ -37,7 +37,7 @@
       map_en: true                   # /Laser_map -> PLY del laberinto
       scan_publish_en: true
       dense_publish_en: true
-      scan_bodyframe_pub_en: false
+      scan_bodyframe_pub_en: true    # /cloud_registered_body -> /scan (pointcloud_to_laserscan)
     pcd_save:
       pcd_save_en: true
       interval: -1

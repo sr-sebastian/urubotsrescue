@@ -18,7 +18,7 @@ inline float slew(float cur, float target, float max_rate, float dt) {
 // PI de velocidad con feed-forward y anti-windup por saturación condicional.
 // Salida en "duty" [-1, 1].
 struct VelocityPI {
-  float kp = 0.8f, ki = 4.0f, kff = 1.0f / 0.75f;  // kff = 1 / velocidad a duty 100% [m/s]
+  float kp = 0.8f, ki = 4.0f, kff = 1.0f / 0.42f;  // kff = 1 / velocidad a duty 100% [m/s]
   float integ = 0.0f;
 
   float update(float setpoint, float measured, float dt) {

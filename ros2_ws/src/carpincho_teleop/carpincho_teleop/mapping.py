@@ -25,8 +25,8 @@ BUTTONS = dict(a=0, b=1, x=2, y=3, lb=4, rb=5, back=6, start=7, guide=8, ls=9, r
 
 @dataclass
 class TeleopConfig:
-    speeds: tuple = (0.15, 0.35, 0.70)        # m/s por nivel
-    turn_rate: tuple = (0.6, 1.2, 2.0)        # rad/s por nivel
+    speeds: tuple = (0.12, 0.25, 0.40)        # m/s por nivel
+    turn_rate: tuple = (0.5, 1.0, 1.6)        # rad/s por nivel
     deadzone: float = 0.12
     flipper_vel: float = 1.2                  # rad/s a fondo
     flipper_presets: dict = field(default_factory=lambda: {

@@ -112,9 +112,11 @@ Y_TOTAL = Y_FLIP_PLATE_IN + FLIP_PLATE_T + FLIP_HUB_T
 FLIP_ANGLE_STOW = 15.0              # [deg] pose de manejo normal (punta levantada)
 FLIP_RANGE = (-100.0, 190.0)        # [deg] rango mecánico permitido (0 = horizontal adelante)
 
-# Reducción del flipper: motor -> tubo por correa HTD 5M 15 mm
-FLIP_RED_SMALL_T = 18
-FLIP_RED_BIG_T = 54
+# Reducción del flipper: motor -> tubo por correa HTD 5M 15 mm.
+# La polea del tubo NO puede ser grande: el tubo está a 58 mm del piso y el piso del cuerpo a 33 mm.
+# 30T (Ø ext. ≈ 53 con pestañas) pasa por una ranura de alivio en el piso (CH-03).
+FLIP_RED_SMALL_T = 14
+FLIP_RED_BIG_T = 30
 
 # ---------------------------------------------------------------------------
 # Transmisión de tracción: motor (adentro, escalonado) -> eje trasero por correa
@@ -125,6 +127,10 @@ DRIVE_RED_BIG_T = 30                # 1.5:1
 DRIVE_INNER_BELT_W = 15.0
 
 # Motores (775 + reductora planetaria 42 mm). Medidas típicas: VERIFICAR con el motor real.
+DRIVE_GEARBOX = 51                  # reductora planetaria de tracción (1:51)
+FLIP_GEARBOX = 264                  # reductora del flipper (1:264, planetaria de 56 mm: par nominal ≥ 20 N·m)
+MOTOR_RPM_24V = 6000.0              # 775 a 24 V en vacío (VERIFICAR: hay 775 de 6000 a 12000 rpm)
+MOTOR_T_NOM = 0.10                  # N·m nominal del 775 (continuo)
 GM42_D = 42.0
 GM42_GEAR_L = 52.0
 GM42_MOTOR_D = 44.5
@@ -134,11 +140,16 @@ GM42_SHAFT_D = 8.0
 GM42_SHAFT_L = 30.0                 # pedir eje de salida >= 30 mm (o extensión)
 GM42_BOLT_PCD = 32.0                # 4x M4 en PCD 32 (algunos son M3 / PCD 31)
 GM42_PILOT_D = 22.0
+GM56_D = 56.0                       # reductora planetaria 56 mm para 775 (flipper). VERIFICAR con la real
+GM56_GEAR_L = 72.0
+GM56_BOLT_PCD = 40.0                # 4x M5 en PCD 40 (típico; hay variantes)
+GM56_PILOT_D = 32.0
+GM56_SHAFT_D = 12.0
 
 # ---------------------------------------------------------------------------
 # Ubicación de componentes internos (x, y, z del centro) para el CG y el visor
 # ---------------------------------------------------------------------------
-BATTERY = dict(size=(70.0, 150.0, 50.0), pos=(17.0, 0.0, BODY_BOTTOM_Z + FLOOR_T + 25.0),
+BATTERY = dict(size=(70.0, 150.0, 50.0), pos=(25.0, 0.0, BODY_BOTTOM_Z + FLOOR_T + 25.0),
                mass=1300.0, name="Batería 6S Li-ion 21700 6S2P (≈10 Ah)")
 JETSON = dict(size=(103.0, 90.0, 35.0), pos=(-30.0, 0.0, 140.0), mass=280.0,
               name="Jetson Orin Nano Super 8GB (devkit)")
@@ -152,7 +163,7 @@ ARM_BASE_X = 150.0                  # posición del eje J1 sobre el deck
 ARM_BASE_H = 85.0                   # altura del eje J2 sobre el deck
 ARM_L1 = 260.0                      # hombro -> codo
 ARM_L2 = 240.0                      # codo -> muñeca
-ARM_L3 = 140.0                      # muñeca -> punta de herramienta
+ARM_L3 = 155.0                      # muñeca -> punta de herramienta
 ARM_SHOULDER_RED = 2.0              # GT2 20T -> 40T, 2 servos en paralelo (rango 180°)
 ARM_ELBOW_RED = 2.0                 # GT2 20T -> 40T (rango 175°)
 ARM_TUBE_OD = 20.0                  # tubo de fibra de carbono 20x18 (o Al 20x1)
@@ -163,12 +174,12 @@ GRIPPER_OPEN = 105.0                # apertura máxima (regla RRL: 10 cm)
 # ---------------------------------------------------------------------------
 LIDAR_POS = (-170.0, 0.0, BODY_TOP_Z + 190.0)       # Livox Mid-360 sobre mástil
 CAM_FRONT_POS = (BODY_LEN / 2 - 15.0, 0.0, BODY_TOP_Z - 25.0)
-DEPTH_CAM_POS = (BODY_LEN / 2 - 30.0, 0.0, BODY_TOP_Z + 45.0)
-THERMAL_POS = (BODY_LEN / 2 - 30.0, 45.0, BODY_TOP_Z + 45.0)
+DEPTH_CAM_POS = (BODY_LEN / 2 - 15.0, 0.0, BODY_TOP_Z + 45.0)
+THERMAL_POS = (BODY_LEN / 2 - 15.0, 62.0, BODY_TOP_Z + 45.0)
 CAM_REAR_POS = (-BODY_LEN / 2 + 15.0, 0.0, BODY_TOP_Z - 25.0)
 ESTOP_POS = (-BODY_LEN / 2 + 45.0, -75.0, BODY_TOP_Z + DECK_T)
 # pose de guardado del brazo (grados): J1 yaw, J2 hombro, J3 codo, J4 muñeca, J5 giro
-ARM_STOW = (0.0, -90.0, 170.0, 30.0, 0.0)
+ARM_STOW = (0.0, -90.0, 140.0, 50.0, 0.0)
 ARM_READY = (0.0, 20.0, 60.0, 10.0, 0.0)
 
 # ---------------------------------------------------------------------------

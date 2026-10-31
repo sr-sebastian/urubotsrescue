@@ -26,19 +26,50 @@ GT2_BIG_R = 40 * 2 / 3.14159 / 2      # radio primitivo GT2 40T (12.7 mm)
 GT2_20_R = 20 * 2 / 3.14159 / 2
 
 
-def servo_box() -> cq.Workplane:
-    """STS3215 aprox. (45.2 x 24.7 x 35), horn en +Z a 11 mm de un extremo. Origen = eje del horn."""
-    b = cq.Workplane("XY").box(SL, SW, SD).translate((SL / 2 - 11.0, 0, -SD / 2))
-    horn = cq.Workplane("XY").circle(10).extrude(4)
-    return b.union(horn)
+def servo_box(clear: float = 0.0) -> cq.Workplane:
+    """STS3215 aprox. (45.2 x 24.7 x 35), horn en +Z a 11 mm de un extremo. Origen = eje del horn.
+    Con clear > 0 devuelve el volumen a restar (bolsillo) con ese juego, sin el horn."""
+    b = cq.Workplane("XY").box(SL + 2 * clear, SW + 2 * clear, SD + 2 * clear).translate((SL / 2 - 11.0, 0, -SD / 2))
+    if clear:
+        return b
+    return b.union(cq.Workplane("XY").circle(10).extrude(4))
 
 
-def _servo_pocket(at, axis="Y"):
-    """Volumen para restar donde va un servo (con 0.4 mm de juego)."""
-    b = cq.Workplane("XY").box(SL + 0.8, SW + 0.8, SD + 0.8).translate((SL / 2 - 11.0, 0, -SD / 2))
-    if axis == "Y":
-        b = b.rotate((0, 0, 0), (1, 0, 0), -90)
-    return b.translate(at)
+def servo_cut() -> cq.Workplane:
+    """Bolsillo (0.4 mm de juego) + agujero para el horn y su tornillería (Ø24 x 12)."""
+    b = servo_box(0.4)
+    return b.union(cq.Workplane("XY").circle(12).extrude(12).translate((0, 0, -1)))
+
+
+ZG = ZW + 85.0                        # centro de la base de la pinza (sobre el horn de J5)
+
+# Ubicación de cada servo en pose cero: (nombre, nivel de la cadena, posición del horn, rotación)
+# El nivel indica de qué articulación "cuelga" (0 fijo, 1 J1, 2 J2, 3 J3, 4 J4, 5 J5).
+SERVOS = [
+    ("J1", 0, (AX, 0.0, ZD + 36.5), (0.0, 0.0, 0.0)),
+    ("J2a", 1, (AX - 25, 44.0, ZS - 30), (90.0, 0.0, 0.0)),      # horn hacia -Y (adentro), cuerpo afuera
+    ("J2b", 1, (AX - 25, -44.0, ZS - 30), (-90.0, 0.0, 0.0)),
+    ("J3", 2, (AX, 42.0, ZE - 55), (90.0, 0.0, 0.0)),
+    ("J4", 3, (AX, SW / 2 + 0.5, ZW), (-90.0, 0.0, 0.0)),        # en línea con el antebrazo
+    ("J5", 4, (AX, 0.0, ZW + 77), (0.0, 0.0, 0.0)),              # giro: horn hacia la pinza
+    ("J6", 5, (AX + 34, 0.0, ZG + 4 + SD), (0.0, 0.0, 90.0)),    # pinza: al costado de los dedos
+]
+
+
+def _pocket(name: str, clear: float = 0.4) -> cq.Workplane:
+    for n, _, pos, rot in SERVOS:
+        if n == name:
+            b = servo_cut() if clear == 0.4 else servo_box(clear)
+            for axis, ang in zip(((1, 0, 0), (0, 1, 0), (0, 0, 1)), rot):
+                if ang:
+                    b = b.rotate((0, 0, 0), axis, ang)
+            return b.translate(pos)
+    raise KeyError(name)
+
+
+def _seat(name: str, wall: float = 3.0) -> cq.Workplane:
+    """Caja que envuelve al servo con `wall` de pared (para unir a un soporte y después restar el bolsillo)."""
+    return _pocket(name, clear=wall)
 
 
 # ---------------------------------------------------------------------------
@@ -50,43 +81,38 @@ def base() -> cq.Workplane:
     h = 36.0
     b = cq.Workplane("XY").circle(55).extrude(h).translate((AX, 0, ZD))
     b = b.cut(cq.Workplane("XY").circle(47).extrude(h - 4).translate((AX, 0, ZD + 4)))
-    b = b.union(rounded_box(SL + 8, SW + 8, SD - 4, 3).translate((AX + SL / 2 - 11, 0, ZD + h - (SD - 4) / 2)))
-    b = b.cut(_servo_pocket((AX, 0, ZD + h + 0.5), axis="Z"))
+    b = b.union(_seat("J1").intersect(cq.Workplane("XY").circle(55).extrude(h).translate((AX, 0, ZD))))
+    b = b.cut(_pocket("J1"))
     b = b.cut(cq.Workplane("XY").polarArray(40, 0, 360, 6).circle(2.2).extrude(4).translate((AX, 0, ZD)))
-    b = b.cut(cq.Workplane("XY").circle(14).extrude(4).translate((AX, 0, ZD)))
+    b = b.cut(cq.Workplane("XY").center(AX - 30, 0).circle(10).extrude(4).translate((0, 0, ZD)))
     return b
 
 
 def turret() -> cq.Workplane:
-    """AR-02: torreta giratoria (J1) con mejillas del hombro y 2 servos J2."""
+    """AR-02: torreta giratoria (J1) con mejillas del hombro y 2 servos J2 por fuera."""
     z0 = ZD + 38.0
-    disc = cq.Workplane("XY").circle(52).extrude(8).translate((AX, 0, z0))
+    t = cq.Workplane("XY").circle(52).extrude(8).translate((AX, 0, z0))
     cheek = (cq.Workplane("XZ").center(AX, (z0 + 8 + ZS + 22) / 2).rect(70, ZS + 22 - z0 - 8)
              .extrude(-8).edges("|Y").fillet(6))
-    t = disc
-    for s in (1, -1):
-        c = cheek.translate((0, CHEEK_Y if s > 0 else -CHEEK_Y - 8, 8 * 0))
-        t = t.union(c)
-    # rodamientos 608 del eje del hombro en las mejillas
-    t = t.cut(cq.Workplane("XZ").center(AX, ZS).circle(11).extrude(80, both=True))
-    # bolsillos de servos J2 (horn hacia afuera, debajo y atrás del hombro)
-    for s in (1, -1):
-        t = t.union(rounded_box(SL + 8, SD + 6, SW + 8, 3).translate(
-            (AX - 25 + SL / 2 - 11, s * (CHEEK_Y + 8 + SD / 2 - 2), ZS - 30)))
-    # acople al horn de J1 (4x M3) + paso de cables
+    for y0 in (CHEEK_Y, -CHEEK_Y - 8):
+        t = t.union(cheek.translate((0, y0, 0)))
+    t = t.cut(cq.Workplane("XZ").center(AX, ZS).circle(11).extrude(80, both=True))     # 608 del hombro
+    for n in ("J2a", "J2b"):
+        seat = _seat(n)
+        # el asiento del servo baja hasta el disco de la torreta
+        t = t.union(seat).cut(_pocket(n))
+    t = t.cut(cq.Workplane("XY").circle(10.5).extrude(3).translate((AX, 0, z0)))          # rebaje del horn J1
     t = t.cut(cq.Workplane("XY").polarArray(7, 45, 360, 4).circle(1.6).extrude(8).translate((AX, 0, z0)))
-    t = t.cut(cq.Workplane("XY").center(AX - 30, 0).rect(16, 30).extrude(8).translate((0, 0, z0)))
+    t = t.cut(cq.Workplane("XY").center(AX + 30, 0).rect(16, 30).extrude(8).translate((0, 0, z0)))
     return t
 
 
 def shoulder_hub() -> cq.Workplane:
-    """AR-03: cubo del hombro con 2 poleas GT2 40T integradas y encastre del tubo de Ø20."""
-    w = 2 * CHEEK_Y - 2
-    hub = cq.Workplane("XZ").center(AX, ZS).circle(16).extrude(w / 2, both=True)
-    for s in (1, -1):
-        pul = (cq.Workplane("XZ").center(AX, ZS).circle(GT2_BIG_R - 0.6).extrude(7)
-               .translate((0, s * (CHEEK_Y + 8 + 4) + (7 if s > 0 else 0) * 0, 0)))
-        hub = hub.union(pul.translate((0, 3.5 if s > 0 else -3.5 + 7, 0)))
+    """AR-03: cubo del hombro con 2 poleas GT2 40T integradas (por fuera de las mejillas)."""
+    hub = cq.Workplane("XZ").center(AX, ZS).circle(16).extrude(CHEEK_Y - 1, both=True)
+    for y0 in (CHEEK_Y + 8 + 1, -(CHEEK_Y + 8 + 1) - 7):
+        hub = hub.union(cq.Workplane("XZ").center(AX, ZS).circle(GT2_BIG_R - 0.6).extrude(-7).translate((0, y0, 0)))
+    # eje pasante de 8 mm: las poleas exteriores se fijan al eje con prisioneros, el eje al cubo con pasador
     sock = cq.Workplane("XY").circle(P.ARM_TUBE_OD / 2 + 4).extrude(35).translate((AX, 0, ZS + 8))
     hub = hub.union(sock)
     hub = hub.cut(cq.Workplane("XY").circle(P.ARM_TUBE_OD / 2 + 0.15).extrude(30).translate((AX, 0, ZS + 13)))
@@ -100,26 +126,23 @@ def tube(z0: float, z1: float) -> cq.Workplane:
 
 
 def elbow_lower() -> cq.Workplane:
-    """AR-04: horquilla del codo (extremo del eslabón 1) con servo J3 y rodamientos 608."""
+    """AR-04: horquilla del codo (extremo del eslabón 1) con el servo J3 al costado."""
     zb = ZE - 70
     block = rounded_box(48, 2 * CHEEK_Y + 12, 30, 4).translate((AX, 0, zb + 15))
-    block = block.cut(cq.Workplane("XY").circle(P.ARM_TUBE_OD / 2 + 0.15).extrude(30).translate((AX, 0, zb - 5)))
+    block = block.cut(cq.Workplane("XY").circle(P.ARM_TUBE_OD / 2 + 0.15).extrude(25).translate((AX, 0, zb)))
     fork = cq.Workplane("XZ").center(AX, ZE - 20).rect(44, 60).extrude(-6).edges("|Y").fillet(5)
-    for s in (1, -1):
-        block = block.union(fork.translate((0, (CHEEK_Y - 2) if s > 0 else -(CHEEK_Y + 4), 0)))
+    for y0 in (CHEEK_Y - 10, -(CHEEK_Y - 10) - 6):      # horquilla angosta: la polea 40T va por fuera
+        block = block.union(fork.translate((0, y0, 0)))
     block = block.cut(cq.Workplane("XZ").center(AX, ZE).circle(11).extrude(80, both=True))
-    # servo J3 a un costado, horn hacia +Y
-    block = block.union(rounded_box(SL + 6, SD + 4, SW + 6, 3).translate(
-        (AX + SL / 2 - 11, CHEEK_Y + 4 + SD / 2, zb + 15)))
+    block = block.union(_seat("J3")).cut(_pocket("J3"))
     return block
 
 
 def elbow_hub() -> cq.Workplane:
-    """AR-05a: cubo del codo con polea GT2 40T, encastre del tubo del eslabón 2."""
-    w = 2 * CHEEK_Y - 6
-    hub = cq.Workplane("XZ").center(AX, ZE).circle(15).extrude(w / 2, both=True)
-    pul = cq.Workplane("XZ").center(AX, ZE).circle(GT2_BIG_R - 0.6).extrude(-7).translate((0, CHEEK_Y + 6, 0))
-    hub = hub.union(pul)
+    """AR-05a: cubo del codo con polea GT2 40T (en el plano del horn de J3)."""
+    hub = cq.Workplane("XZ").center(AX, ZE).circle(15).extrude(20, both=True)
+    hub = hub.union(cq.Workplane("XZ").center(AX, ZE).circle(8).extrude(-12).translate((0, 20.0, 0)))   # eje a la polea
+    hub = hub.union(cq.Workplane("XZ").center(AX, ZE).circle(GT2_BIG_R - 0.6).extrude(-6).translate((0, 32.0, 0)))
     sock = cq.Workplane("XY").circle(P.ARM_TUBE_OD / 2 + 4).extrude(32).translate((AX, 0, ZE + 8))
     hub = hub.union(sock)
     hub = hub.cut(cq.Workplane("XY").circle(P.ARM_TUBE_OD / 2 + 0.15).extrude(28).translate((AX, 0, ZE + 12)))
@@ -129,38 +152,37 @@ def elbow_hub() -> cq.Workplane:
 
 def wrist_mount() -> cq.Workplane:
     """AR-05b: soporte del servo J4 en el extremo del eslabón 2."""
-    zb = ZW - 45
-    m = rounded_box(34, 40, 34, 4).translate((AX, 0, zb))
-    m = m.cut(cq.Workplane("XY").circle(P.ARM_TUBE_OD / 2 + 0.15).extrude(25).translate((AX, 0, zb - 17)))
-    m = m.union(rounded_box(SD + 6, SW + 6, SL + 6, 3).translate((AX, 0, ZW - 11 + SL / 2 - SL / 2 - 4)))
-    m = m.cut(_servo_pocket((AX, -SW / 2 - 0.5 + 12.5, ZW), axis="Y").rotate((AX, 0, ZW), (AX, 1, ZW), 90))
+    zb = ZW - 50
+    m = rounded_box(34, 40, 24, 4).translate((AX, 0, zb))
+    m = m.cut(cq.Workplane("XY").circle(P.ARM_TUBE_OD / 2 + 0.15).extrude(20).translate((AX, 0, zb - 12)))
+    m = m.union(_seat("J4")).cut(_pocket("J4"))
     return m
 
 
 def wrist_bracket() -> cq.Workplane:
-    """AR-06: horquilla de muñeca (J4) que lleva el servo de giro J5 alineado con la herramienta."""
-    u = cq.Workplane("XY").box(46, 6, 40).translate((AX, SW / 2 + 10, ZW + 8))
-    u = u.union(cq.Workplane("XY").box(46, 6, 40).translate((AX, -SW / 2 - 10, ZW + 8)))
-    u = u.union(cq.Workplane("XY").box(46, SW + 26, 6).translate((AX, 0, ZW + 31)))
-    u = u.union(rounded_box(SW + 6, SD + 6, 18, 3).translate((AX, 0, ZW + 43)))
+    """AR-06: horquilla de muñeca (gira con J4) que lleva el servo de giro J5."""
+    y_horn = SW / 2 + 0.5 + 4.0 + 1.0                     # lado del horn de J4 (+Y)
+    y_idle = SD - (SW / 2 + 0.5) + 3.0 + 1.5              # lado opuesto: por fuera del asiento de J4
+    side = rounded_box(50, 5, 64, 3)
+    u = side.translate((AX, y_horn + 2.5, ZW + 18)).union(side.translate((AX, -(y_idle + 2.5), ZW + 18)))
+    u = u.union(rounded_box(50, y_horn + y_idle + 5, 6, 3).translate((AX, (y_horn - y_idle) / 2, ZW + 47)))
+    u = u.union(_seat("J5")).cut(_pocket("J5"))
     return u
 
 
 def gripper() -> cq.Workplane:
-    """AR-07: pinza de 2 dedos engranados (servo J6), apertura máx. 105 mm, cámara y Hall."""
-    zg = ZW + 55
-    base_p = rounded_box(60, 40, 8, 4).translate((AX, 0, zg))
-    servo_mount = rounded_box(SL + 6, SW + 6, 12, 3).translate((AX, 0, zg + 10))
+    """AR-07: pinza de 2 dedos engranados (servo J6 al costado), apertura máx. 105 mm, cámara y Hall."""
+    base_p = rounded_box(60, 44, 8, 4).translate((AX + 5, 0, ZG))
     fingers = None
     for s in (1, -1):
-        f = (cq.Workplane("XZ").polyline([(0, 0), (8, 0), (6, 80), (-2, 80)]).close()
-             .extrude(9, both=True).translate((AX + s * 12 - (0 if s > 0 else 6), 0, zg + 4)))
-        pad = cq.Workplane("XY").box(4, 16, 40).translate((AX + s * 9, 0, zg + 60))
-        f = f.union(pad)
+        f = (cq.Workplane("XZ").polyline([(0, 0), (8, 0), (6, 66), (-2, 66)]).close()
+             .extrude(9, both=True).translate((AX + s * 12 - (0 if s > 0 else 6), 0, ZG + 4)))
+        f = f.union(cq.Workplane("XY").box(4, 16, 36).translate((AX + s * 9, 0, ZG + 46)))
         fingers = f if fingers is None else fingers.union(f)
-    cam = rounded_box(26, 26, 14, 3).translate((AX - 32, 0, zg + 20))      # cámara de pinza
-    hall = cq.Workplane("XY").box(6, 10, 14).translate((AX, 0, zg + 84))    # sensor Hall en la punta
-    return base_p.union(servo_mount).union(fingers).union(cam).union(hall)
+    j6 = _seat("J6").cut(_pocket("J6"))
+    cam = rounded_box(26, 26, 14, 3).translate((AX - 32, 0, ZG + 18))      # cámara de pinza
+    hall = cq.Workplane("XY").box(6, 10, 10).translate((AX, 0, ZW + P.ARM_L3 - 5))
+    return base_p.union(fingers).union(j6).union(cam).union(hall)
 
 
 # ---------------------------------------------------------------------------
@@ -208,12 +230,6 @@ def parts(pose=P.ARM_STOW) -> list[Part]:
              "Impresión 3D PETG 40%; almohadillas TPU", pl(5),
              notes="Ranura en V en los dedos para tomar el eje de 6 mm de la herramienta (tarea INSERT)."),
         Part("REF-SV", "Servo Feetech STS3215 12 V (x7)", "referencia", servo_box, "motor", "Comprado",
-             [Placement(pos=(AX, 0, ZD + 36.5), chain=chain_for(0, pose)),
-              Placement(pos=(AX - 25, CHEEK_Y + 8 + 2, ZS - 30), rot=(-90, 0, 0), chain=chain_for(1, pose)),
-              Placement(pos=(AX - 25, -(CHEEK_Y + 8 + 2), ZS - 30), rot=(90, 0, 0), chain=chain_for(1, pose)),
-              Placement(pos=(AX, CHEEK_Y + 6, ZE - 55), rot=(-90, 0, 0), chain=chain_for(2, pose)),
-              Placement(pos=(AX, SW / 2 + 0.5, ZW), rot=(-90, 0, 0), chain=chain_for(3, pose)),
-              Placement(pos=(AX, 0, ZW + 52), rot=(180, 0, 0), chain=chain_for(4, pose)),
-              Placement(pos=(AX, 0, ZW + 72), rot=(0, 0, 90), chain=chain_for(5, pose))],
+             [Placement(pos=pos, rot=rot, chain=chain_for(lvl, pose), tag=n) for n, lvl, pos, rot in SERVOS],
              export=False, bought=True),
     ]

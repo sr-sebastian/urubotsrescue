@@ -58,7 +58,7 @@ class ArmDriver(Node):
         self.max_joint_vel = p("max_joint_vel", 1.2).value          # rad/s
         self.simulate = p("simulate", False).value                 # sin hardware: eco de comandos
         self.geom = ArmGeometry(p("h0", 0.085).value, p("l1", 0.26).value, p("l2", 0.24).value,
-                                p("l3", 0.14).value)
+                                p("l3", 0.155).value)
         self.maps: list[JointMap] = []
         for j in JOINTS:
             ids = p(f"{j}.ids", [1]).value

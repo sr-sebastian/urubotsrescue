@@ -38,7 +38,7 @@ constexpr float TRACK_PD_M = 0.09549f;                 // polea 60T HTD5M
 constexpr float TRACK_EFF_RADIUS_M = TRACK_PD_M / 2;   // radio en la línea primitiva de la correa
 constexpr float DRIVE_BELT_RATIO = 30.0f / 20.0f;      // motor -> eje trasero
 constexpr float ENCODER_CPR_MOTOR = 7 * 4;             // pulsos/vuelta del motor x4 (ajustar a tu encoder)
-constexpr float GEARBOX_RATIO = 27.0f;                 // reductora planetaria
+constexpr float GEARBOX_RATIO = 51.0f;                 // reductora planetaria (params.DRIVE_GEARBOX)
 constexpr float COUNTS_PER_M =
     ENCODER_CPR_MOTOR * GEARBOX_RATIO * DRIVE_BELT_RATIO / (2.0f * 3.14159265f * TRACK_EFF_RADIUS_M);
 constexpr bool INVERT_LEFT = false;
@@ -47,8 +47,8 @@ constexpr bool INVERT_FLIP_MOTOR = false;
 constexpr bool INVERT_FLIP_SENSOR = false;
 
 // ---- Límites y tiempos -------------------------------------------------------
-constexpr float MAX_TRACK_SPEED = 0.7f;     // m/s (sin carga a 24 V ≈ 0.75: 775@6000rpm /27 /1.5)
-constexpr float DEFAULT_MAX_ACCEL = 1.5f;   // m/s^2
+constexpr float MAX_TRACK_SPEED = 0.40f;    // m/s (sin carga a 24 V ≈ 0.39-0.45: 775@6000rpm /51 /1.5)
+constexpr float DEFAULT_MAX_ACCEL = 1.0f;   // m/s^2
 constexpr uint32_t CMD_TIMEOUT_MS = 300;    // sin comandos -> frenar
 constexpr uint16_t BATT_LOW_MV = 21600;     // 6S Li-ion: 3.6 V/celda
 constexpr uint16_t BATT_CRIT_MV = 19800;    // 3.3 V/celda -> deshabilitar motores

@@ -4,17 +4,17 @@ base_bridge:
     baud: 921600
     track_separation: 0.275            # 2 * Y_TRACK_C
     slip_factor: 1.6                   # CALIBRAR (docs/05-software/calibracion.md)
-    max_speed: 0.7
+    max_speed: 0.4
     cmd_timeout: 0.5
     publish_tf: true                   # false si usás robot_localization/FAST-LIO para odom->base
     use_imu_yaw: true
-    counts_per_m: 3780.1               # 7*4*27*1.5 / (pi*0.09549) -> CALIBRAR con 5 m medidos
+    counts_per_m: 7140.2               # 7*4*51*1.5 / (pi*0.09549) -> CALIBRAR con 5 m medidos
     invert_left_encoder: false
     invert_right_encoder: true
     auto_enable: false                 # por seguridad: armar con el botón START del joystick
     kp: 0.8
     ki: 4.0
-    kff: 1.333
-    max_accel: 1.5
+    kff: 2.38
+    max_accel: 1.0
     flip_kp: 3.0
     flip_max_vel: 1.5

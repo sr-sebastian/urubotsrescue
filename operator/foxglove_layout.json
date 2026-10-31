@@ -1,0 +1,124 @@
+{
+ "configById": {
+  "Image!front": {
+   "imageMode": {
+    "imageTopic": "/cam_front/image_raw/compressed"
+   },
+   "foxglovePanelTitle": "Frontal"
+  },
+  "Image!gripper": {
+   "imageMode": {
+    "imageTopic": "/qr_gripper/image"
+   },
+   "foxglovePanelTitle": "Pinza (QR)"
+  },
+  "Image!thermal": {
+   "imageMode": {
+    "imageTopic": "/thermal/image_color"
+   },
+   "foxglovePanelTitle": "Térmica"
+  },
+  "Image!hazmat": {
+   "imageMode": {
+    "imageTopic": "/hazmat/image"
+   },
+   "foxglovePanelTitle": "Hazmat"
+  },
+  "Image!rear": {
+   "imageMode": {
+    "imageTopic": "/cam_rear/image_raw/compressed"
+   },
+   "foxglovePanelTitle": "Trasera"
+  },
+  "3D!map": {
+   "followTf": "base_footprint",
+   "layers": {
+    "grid": {
+     "layerId": "foxglove.Grid",
+     "visible": true
+    }
+   },
+   "topics": {
+    "/map": {
+     "visible": true
+    },
+    "/poi/markers": {
+     "visible": true
+    },
+    "/scan": {
+     "visible": true
+    },
+    "/robot_description": {
+     "visible": true
+    }
+   },
+   "foxglovePanelTitle": "Mapa"
+  },
+  "RawMessages!status": {
+   "topicPath": "/base/status",
+   "foxglovePanelTitle": "Estado base"
+  },
+  "RawMessages!lane": {
+   "topicPath": "/autonomy/lane_status",
+   "foxglovePanelTitle": "Autonomía"
+  },
+  "RawMessages!qr": {
+   "topicPath": "/qr/text",
+   "foxglovePanelTitle": "Texto QR"
+  },
+  "Plot!batt": {
+   "paths": [
+    {
+     "value": "/base/status.battery_voltage",
+     "enabled": true
+    }
+   ],
+   "foxglovePanelTitle": "Batería [V]"
+  }
+ },
+ "globalVariables": {},
+ "userNodes": {},
+ "playbackConfig": {
+  "speed": 1
+ },
+ "layout": {
+  "direction": "row",
+  "splitPercentage": 62,
+  "first": {
+   "direction": "column",
+   "splitPercentage": 66,
+   "first": "Image!front",
+   "second": {
+    "direction": "row",
+    "first": "Image!gripper",
+    "second": {
+     "direction": "row",
+     "first": "Image!thermal",
+     "second": "Image!rear"
+    }
+   }
+  },
+  "second": {
+   "direction": "column",
+   "splitPercentage": 50,
+   "first": "3D!map",
+   "second": {
+    "direction": "row",
+    "first": {
+     "direction": "column",
+     "first": "RawMessages!status",
+     "second": "Plot!batt"
+    },
+    "second": {
+     "direction": "column",
+     "first": "RawMessages!lane",
+     "second": {
+      "direction": "column",
+      "first": "RawMessages!qr",
+      "second": "Image!hazmat"
+     }
+    }
+   }
+  }
+ }
+}

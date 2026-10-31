@@ -143,10 +143,21 @@ class MissionExporter(Node):
             cv2.putText(img, str(p.detection), (c + 12, r - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.45, (0, 0, 0), 1)
         cv2.imwrite(path, img)
 
+    def to_map(self, pts: np.ndarray, frame: str) -> np.ndarray:
+        if not frame or frame == self.map_frame:
+            return pts
+        t = self.tf_buffer.lookup_transform(self.map_frame, frame, rclpy.time.Time()).transform
+        w, x, y, z = t.rotation.w, t.rotation.x, t.rotation.y, t.rotation.z
+        R = np.array([[1 - 2 * (y * y + z * z), 2 * (x * y - z * w), 2 * (x * z + y * w)],
+                      [2 * (x * y + z * w), 1 - 2 * (x * x + z * z), 2 * (y * z - x * w)],
+                      [2 * (x * z - y * w), 2 * (y * z + x * w), 1 - 2 * (x * x + y * y)]])
+        return pts @ R.T + np.array([t.translation.x, t.translation.y, t.translation.z])
+
     def write_ply(self, path: str) -> int:
         pts = point_cloud2.read_points_numpy(self.cloud, field_names=("x", "y", "z"), skip_nans=True)
         pts = np.asarray(pts, dtype=np.float64).reshape(-1, 3)
-        # la nube de FAST-LIO viene en camera_init (= inicio del robot, mismo origen que map)
+        # la nube de FAST-LIO viene en camera_init (el LiDAR en la pose inicial): pasarla a map
+        pts = self.to_map(pts, self.cloud.header.frame_id)
         pts, _ = voxel_downsample(pts, self.voxel)
         pts = map_to_ply_frame(pts, self.front_offset)
         with open(path, "w", encoding="ascii") as f:

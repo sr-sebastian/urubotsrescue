@@ -1,7 +1,7 @@
 joy_teleop:
   ros__parameters:
-    speeds: [0.15, 0.35, 0.70]
-    turn_rate: [0.6, 1.2, 2.0]
+    speeds: [0.12, 0.25, 0.40]
+    turn_rate: [0.5, 1.0, 1.6]
     deadzone: 0.12
     triggers_rest_at_one: true      # xpad (Xbox). PS4/PS5 con hid-sony: también true
     # Si tu joystick es distinto, mirá `ros2 topic echo /joy` y cambiá los índices:

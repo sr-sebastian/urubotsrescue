@@ -1,0 +1,10 @@
+# Archivos generados por cad/build.py y tools/gen_docs.py
+cad/out/** linguist-generated=true
+docs/03-mecanica/piezas.md linguist-generated=true
+docs/03-mecanica/calculos.md linguist-generated=true
+hardware/bom.md linguist-generated=true
+ros2_ws/src/carpincho_description/urdf/carpincho_params.xacro linguist-generated=true
+*.step -diff
+*.stl binary
+*.glb binary
+*.png binary

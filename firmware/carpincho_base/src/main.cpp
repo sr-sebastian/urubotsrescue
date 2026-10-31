@@ -181,7 +181,14 @@ static void read_power() {
   if (batt_mv > 5000 && batt_mv < BATT_LOW_MV) faults |= proto::F_BATT_LOW; else faults &= ~proto::F_BATT_LOW;
   if (batt_mv > 5000 && batt_mv < BATT_CRIT_MV) faults |= proto::F_BATT_CRIT;  // queda latcheado
   if (fabsf(batt_a) > OVERCURRENT_A) faults |= proto::F_OVERCURRENT; else faults &= ~proto::F_OVERCURRENT;
-  if (digitalRead(PIN_ESTOP_SENSE) == LOW) faults |= proto::F_ESTOP; else faults &= ~proto::F_ESTOP;
+  if (digitalRead(PIN_ESTOP_SENSE) == LOW) {
+    // E-stop apretado: además de frenar, desarmamos. Al soltarlo NO arranca solo:
+    // el operador tiene que volver a armar (START del joystick).
+    faults |= proto::F_ESTOP;
+    motors_enabled = false;
+  } else {
+    faults &= ~proto::F_ESTOP;
+  }
 }
 
 // ---------------------------------------------------------------- LEDs

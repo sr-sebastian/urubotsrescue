@@ -2,13 +2,16 @@
 
 Los nombres de /dev/video_* los crea la regla udev (udev/99-carpincho.rules).
 depth_driver: "orbbec" (Gemini 2 / Dabai) o "realsense" (D435i).
+lio: con FAST-LIO el driver Livox publica CustomMsg (lo que pide FAST-LIO) y el /scan sale de la nube
+     /cloud_registered_body de FAST-LIO. Sin FAST-LIO, el driver publica PointCloud2 en /livox/lidar.
 """
 import os
 
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription
-from launch.conditions import LaunchConfigurationEquals
+from launch.conditions import IfCondition, LaunchConfigurationEquals, UnlessCondition
+from launch.substitutions import LaunchConfiguration
 from launch.launch_description_sources import AnyLaunchDescriptionSource, PythonLaunchDescriptionSource
 from launch_ros.actions import Node
 
@@ -21,8 +24,10 @@ def usb_cam(name, dev, w=1280, h=720, fps=30, fmt="MJPG"):
 
 def generate_launch_description():
     cfg = os.path.join(get_package_share_directory("carpincho_bringup"), "config")
+    lio = LaunchConfiguration("lio")
     actions = [
         DeclareLaunchArgument("depth_driver", default_value="orbbec"),
+        DeclareLaunchArgument("lio", default_value="true"),
         usb_cam("cam_front", "/dev/video_front"),
         usb_cam("cam_rear", "/dev/video_rear", 640, 480, 15),
         usb_cam("gripper_cam", "/dev/video_gripper", 1280, 720, 30),
@@ -32,13 +37,20 @@ def generate_launch_description():
                           "output_encoding": "mono16", "camera_frame_id": "thermal_optical_frame"}],
              remappings=[("image_raw", "/thermal/image_raw")]),
         # 3D -> 2D para centrar en carriles y para el mapa 2D
-        Node(package="pointcloud_to_laserscan", executable="pointcloud_to_laserscan_node",
+        Node(package="pointcloud_to_laserscan", executable="pointcloud_to_laserscan_node", condition=IfCondition(lio),
+             parameters=[os.path.join(cfg, "scan.yaml")],
+             remappings=[("cloud_in", "/cloud_registered_body"), ("scan", "/scan")]),
+        Node(package="pointcloud_to_laserscan", executable="pointcloud_to_laserscan_node", condition=UnlessCondition(lio),
              parameters=[os.path.join(cfg, "scan.yaml")],
              remappings=[("cloud_in", "/livox/lidar"), ("scan", "/scan")]),
     ]
     try:
-        livox = os.path.join(get_package_share_directory("livox_ros_driver2"), "launch_ROS2", "msg_MID360_launch.py")
-        actions.append(IncludeLaunchDescription(PythonLaunchDescriptionSource(livox)))
+        livox_dir = os.path.join(get_package_share_directory("livox_ros_driver2"), "launch_ROS2")
+        # msg_ = CustomMsg (FAST-LIO) · rviz_ = PointCloud2
+        actions.append(IncludeLaunchDescription(PythonLaunchDescriptionSource(
+            os.path.join(livox_dir, "msg_MID360_launch.py")), condition=IfCondition(lio)))
+        actions.append(IncludeLaunchDescription(PythonLaunchDescriptionSource(
+            os.path.join(livox_dir, "rviz_MID360_launch.py")), condition=UnlessCondition(lio)))
     except Exception:  # noqa: BLE001
         print("[sensors] livox_ros_driver2 no instalado: sin LiDAR")
     try:

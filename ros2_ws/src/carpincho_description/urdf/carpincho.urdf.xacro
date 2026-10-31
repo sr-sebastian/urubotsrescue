@@ -202,12 +202,12 @@
     <joint name="arm_j3" type="revolute">
       <parent link="arm_link2"/><child link="arm_link3"/>
       <origin xyz="0 0 ${arm_l1}"/>
-      <axis xyz="0 1 0"/><limit lower="-0.087" upper="2.967" effort="5.8" velocity="1.2"/>
+      <axis xyz="0 1 0"/><limit lower="-0.087" upper="2.443" effort="5.8" velocity="1.2"/>
     </joint>
     <joint name="arm_j4" type="revolute">
       <parent link="arm_link3"/><child link="arm_link4"/>
       <origin xyz="0 0 ${arm_l2}"/>
-      <axis xyz="0 1 0"/><limit lower="-1.92" upper="1.92" effort="2.9" velocity="2.0"/>
+      <axis xyz="0 1 0"/><limit lower="-1.745" upper="1.745" effort="2.9" velocity="2.0"/>
     </joint>
     <joint name="arm_j5" type="revolute">
       <parent link="arm_link4"/><child link="arm_link5"/>

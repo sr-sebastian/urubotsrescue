@@ -15,23 +15,23 @@
   <xacro:property name="body_top_z" value="0.1900"/>
   <xacro:property name="deck_t" value="0.0040"/>
   <xacro:property name="grouser_h" value="0.0080"/>
-  <xacro:property name="mass_total" value="16.842"/>
-  <xacro:property name="cg_x" value="0.0280"/>
-  <xacro:property name="cg_y" value="0.0006"/>
-  <xacro:property name="cg_z" value="0.1123"/>
+  <xacro:property name="mass_total" value="16.503"/>
+  <xacro:property name="cg_x" value="0.0292"/>
+  <xacro:property name="cg_y" value="0.0010"/>
+  <xacro:property name="cg_z" value="0.1131"/>
   <xacro:property name="arm_x" value="0.1500"/>
   <xacro:property name="arm_base_h" value="0.0850"/>
   <xacro:property name="arm_l1" value="0.2600"/>
   <xacro:property name="arm_l2" value="0.2400"/>
-  <xacro:property name="arm_l3" value="0.1400"/>
+  <xacro:property name="arm_l3" value="0.1550"/>
   <xacro:property name="lidar_x" value="-0.1700"/>
   <xacro:property name="lidar_y" value="0.0000"/>
   <xacro:property name="lidar_z" value="0.3800"/>
-  <xacro:property name="depth_x" value="0.2150"/>
+  <xacro:property name="depth_x" value="0.2300"/>
   <xacro:property name="depth_y" value="0.0000"/>
   <xacro:property name="depth_z" value="0.2350"/>
-  <xacro:property name="thermal_x" value="0.2150"/>
-  <xacro:property name="thermal_y" value="0.0450"/>
+  <xacro:property name="thermal_x" value="0.2300"/>
+  <xacro:property name="thermal_y" value="0.0620"/>
   <xacro:property name="thermal_z" value="0.2350"/>
   <xacro:property name="cam_front_x" value="0.2300"/>
   <xacro:property name="cam_front_z" value="0.1650"/>

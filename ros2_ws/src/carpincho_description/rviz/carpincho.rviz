@@ -25,10 +25,10 @@ Visualization Manager:
       Topic:
         Value: /map
     - Class: rviz_default_plugins/PointCloud2
-      Name: LiDAR
+      Name: LiDAR (FAST-LIO)
       Enabled: true
       Topic:
-        Value: /livox/lidar
+        Value: /cloud_registered
       Size (m): 0.02
       Color Transformer: AxisColor
     - Class: rviz_default_plugins/MarkerArray

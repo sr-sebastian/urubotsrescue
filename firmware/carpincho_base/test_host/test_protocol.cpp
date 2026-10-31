@@ -67,14 +67,14 @@ static void test_frame_and_receiver() {
 static void test_pi() {
   ctl::VelocityPI pi;
   float v = 0;
-  // planta de primer orden: v' = (0.75*duty - v)/0.1
+  // planta de primer orden: v' = (0.42*duty - v)/0.1
   for (int i = 0; i < 400; i++) {
-    float u = pi.update(0.4f, v, 0.005f);
-    v += (0.75f * u - v) / 0.1f * 0.005f;
+    float u = pi.update(0.3f, v, 0.005f);
+    v += (0.42f * u - v) / 0.1f * 0.005f;
   }
-  CHECK(std::fabs(v - 0.4f) < 0.01f);
+  CHECK(std::fabs(v - 0.3f) < 0.01f);
   // saturación: setpoint inalcanzable no debe acumular integral infinita
-  for (int i = 0; i < 2000; i++) pi.update(5.0f, 0.75f, 0.005f);
+  for (int i = 0; i < 2000; i++) pi.update(5.0f, 0.42f, 0.005f);
   CHECK(pi.integ <= 0.6f + 1e-6f);
 }
 

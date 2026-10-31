@@ -7,7 +7,10 @@ publique TF (livox_frame tendría dos padres). Este nodo calcula:
     T_odom_base(t) = T_base_livox · T_ci_body(t) · T_base_livox⁻¹
 
 (el frame odom coincide con base_footprint al arrancar) y publica odom->base_footprint + /odom_lio.
-Además publica map->odom identidad: con FAST-LIO el mapa ya está en el frame odom.
+Además publica TF estáticas para que las nubes de FAST-LIO se puedan usar en el resto del sistema:
+  map -> odom           identidad (con FAST-LIO el mapa ya está en el frame odom)
+  odom -> camera_init   = T_base_livox al arrancar (camera_init es el LiDAR en la pose inicial)
+  livox_frame -> body   identidad (body = IMU interno del Mid-360; la diferencia es < 5 cm)
 Poner publish_tf: false en base_bridge cuando se usa este nodo.
 """
 
@@ -37,10 +40,23 @@ class OdomRelay(Node):
         self.T_bl = None
         self.pub = self.create_publisher(Odometry, "odom_lio", 10)
         self.create_subscription(Odometry, "/Odometry", self.on_odom, 50)
-        t = TransformStamped()
-        t.header.frame_id, t.child_frame_id = self.map, self.odom
-        t.transform.rotation.w = 1.0
-        self.static.sendTransform(t)
+        self.ci = self.declare_parameter("lio_world_frame", "camera_init").value
+        self.body = self.declare_parameter("lio_body_frame", "body").value
+        self.send_static([(self.map, self.odom, ((0.0, 0.0, 0.0), (1.0, 0.0, 0.0, 0.0))),
+                          (self.lidar, self.body, ((0.0, 0.0, 0.0), (1.0, 0.0, 0.0, 0.0)))])
+
+    def send_static(self, items) -> None:
+        msgs = []
+        for parent, child, ((x, y, z), (qw, qx, qy, qz)) in items:
+            t = TransformStamped()
+            t.header.stamp = self.get_clock().now().to_msg()
+            t.header.frame_id, t.child_frame_id = parent, child
+            t.transform.translation.x, t.transform.translation.y, t.transform.translation.z = x, y, z
+            t.transform.rotation.w, t.transform.rotation.x = qw, qx
+            t.transform.rotation.y, t.transform.rotation.z = qy, qz
+            msgs.append(t)
+        self.static_msgs = getattr(self, "static_msgs", []) + msgs
+        self.static.sendTransform(self.static_msgs)
 
     def on_odom(self, m: Odometry) -> None:
         if self.T_bl is None:
@@ -53,6 +69,7 @@ class OdomRelay(Node):
                 (tr.transform.translation.x, tr.transform.translation.y, tr.transform.translation.z),
                 (tr.transform.rotation.w, tr.transform.rotation.x, tr.transform.rotation.y, tr.transform.rotation.z),
             )
+            self.send_static([(self.odom, self.ci, self.T_bl)])
         p, q = m.pose.pose.position, m.pose.pose.orientation
         T_cb = from_msg((p.x, p.y, p.z), (q.w, q.x, q.y, q.z))
         T = compose(compose(self.T_bl, T_cb), invert(self.T_bl))

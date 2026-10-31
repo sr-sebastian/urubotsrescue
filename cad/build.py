@@ -71,13 +71,16 @@ def to_flat_for_dxf(shape: cq.Workplane) -> cq.Workplane:
     dims = {"x": bb.xlen, "y": bb.ylen, "z": bb.zlen}
     thin = min(dims, key=dims.get)
     s = shape
-    if thin == "y":
-        s = s.rotate((0, 0, 0), (1, 0, 0), 90)
-    elif thin == "x":
-        s = s.rotate((0, 0, 0), (0, 1, 0), 90)
+    if thin == "x":                      # placa en YZ (mamparos): primero llevarla a XZ
+        s = s.rotate((0, 0, 0), (0, 0, 1), 90)
+        thin = "y"
+    if thin == "y":                      # placa en XZ: Z del robot queda "arriba" en el DXF
+        s = s.rotate((0, 0, 0), (1, 0, 0), -90)
     bb = s.val().BoundingBox()
     s = s.translate((-bb.xmin, -bb.ymin, -bb.zmin))
-    return s.faces("<Z").wires().toPending().extrude(0.01).faces("<Z")
+    # Workplane NUEVO en XY: el exportador DXF proyecta sobre el plano del Workplane, y una placa
+    # creada en "XZ" arrastra ese plano (saldría proyectada de canto, como una línea)
+    return cq.Workplane("XY").add(s.faces("<Z").val())
 
 
 def mass_of(part: Part, shape: cq.Workplane) -> float:
@@ -175,7 +178,7 @@ def main() -> None:
             assy.export(str(OUT / "carpincho_ensamble.step"))
 
         summary = P.summary()
-        meta = dict(robot=P.ROBOT_NAME, code=P.ROBOT_CODE, generated=time.strftime("%Y-%m-%d"),
+        meta = dict(robot=P.ROBOT_NAME, code=P.ROBOT_CODE,
                     summary={k: round(v, 1) for k, v in summary.items()},
                     mass_total_kg=round(tot_m / 1000, 2), cg_mm=[round(v, 1) for v in cg],
                     groups=GROUPS, parts=catalog)

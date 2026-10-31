@@ -24,14 +24,14 @@ def buttons(*names):
 def test_deadman_required():
     m = TeleopMapper()
     assert m.update(axes(ly=1.0), buttons()).v == 0.0
-    assert m.update(axes(ly=1.0), buttons("lb")).v > 0.3
+    assert math.isclose(m.update(axes(ly=1.0), buttons("lb")).v, m.cfg.speeds[1])
 
 
 def test_speed_levels_and_turn_sign():
     m = TeleopMapper()
     m.update(axes(dy=1.0), buttons())          # subir nivel
     o = m.update(axes(ly=1.0, rx=1.0), buttons("lb"))
-    assert math.isclose(o.v, 0.70, rel_tol=1e-6)
+    assert math.isclose(o.v, 0.40, rel_tol=1e-6)
     assert o.w < 0                             # stick a la derecha = girar a la derecha (w negativo)
 
 

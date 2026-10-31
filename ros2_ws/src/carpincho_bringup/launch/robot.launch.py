@@ -46,7 +46,7 @@ def generate_launch_description():
         Node(package="carpincho_arm", executable="arm_driver", output="screen", condition=IfCondition(arm),
              parameters=[share("carpincho_arm", "config", "arm.yaml")]),
 
-        inc("carpincho_bringup", "sensors.launch.py", sensors),
+        inc("carpincho_bringup", "sensors.launch.py", sensors, {"lio": lio}),
         inc("carpincho_bringup", "mapping.launch.py", lio),
         inc("carpincho_bringup", "perception.launch.py", perception, {"mission": mission}),
 

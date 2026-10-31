@@ -21,9 +21,9 @@ ELEC_LAYOUT = {
     "buck_12v_arm": dict(pos=(-30.0, 80.0), size=(60.0, 50.0, 22.0), name="Buck 24->12 V 10 A (servos brazo)"),
     "buck_5v": dict(pos=(-30.0, -80.0), size=(50.0, 30.0, 15.0), name="Buck 24->5 V 5 A (lógica/USB/LEDs)"),
     # verticales, atornillados a la cara interior de las placas laterales
-    "drv_traccion": dict(pos=(150.0, 103.0), z=118.0, size=(84.0, 22.0, 62.0),
+    "drv_traccion": dict(pos=(150.0, 103.0), z=105.0, size=(84.0, 22.0, 62.0),
                          name="Cytron MDD20A (tracción, 2 canales)"),
-    "drv_flipper": dict(pos=(180.0, -103.0), z=118.0, size=(63.0, 22.0, 60.0),
+    "drv_flipper": dict(pos=(180.0, -103.0), z=105.0, size=(63.0, 22.0, 60.0),
                         name="Cytron MDD10A (flipper + canal libre)"),
 }
 FLOOR_LAYOUT = {
@@ -41,9 +41,10 @@ def electronics_tray() -> cq.Workplane:
     pts = [(TRAY_X + x, y) for x in range(-90, 91, 15) for y in range(-105, 106, 15)]
     tray = tray.cut(cq.Workplane("XY").pushPoints(pts).circle(1.6).extrude(t).translate((0, 0, TRAY_Z)))
     # patas: 4 columnas a las escuadras laterales
-    for x in (TRAY_X - 88, TRAY_X + 88):
+    for x in (-85.0, 40.0):          # entre los motores de tracción y delante de la batería
         for y in (sy / 2 - 8, -sy / 2 + 8):
-            col = cq.Workplane("XY").circle(5).circle(1.6).extrude(TRAY_Z - ZF).translate((x, y, ZF))
+            # apoyan sobre el ala horizontal de la escuadra inferior (2 mm), bulón M3 pasante
+            col = cq.Workplane("XY").circle(5).circle(1.6).extrude(TRAY_Z - ZF - 2).translate((x, y, ZF + 2))
             tray = tray.union(col)
     return tray
 
@@ -76,9 +77,11 @@ def lidar_mast() -> cq.Workplane:
 def sensor_head() -> cq.Workplane:
     """MT-04: cabezal frontal: cámara de profundidad + térmica + LEDs, sobre el deck."""
     x, y, z = P.DEPTH_CAM_POS
-    bracket = rounded_box(40, 160, 6, 4).translate((x - 5, 0, ZD + 3))
-    post = rounded_box(10, 120, 30, 3).translate((x - 18, 0, ZD + 6 + 15))
-    shelf = rounded_box(36, 150, 5, 3).translate((x - 8, 0, z - 17))
+    bracket = rounded_box(36, 160, 6, 4).translate((x - 3, 0, ZD + 3))     # no invade la base del brazo
+    shelf_top = z - 14.0                                                     # apoyo de las cámaras
+    shelf = rounded_box(36, 150, 5, 3).translate((x - 4, 0, shelf_top - 2.5))
+    post_h = shelf_top - 5 - (ZD + 6)
+    post = rounded_box(10, 120, post_h, 3).translate((x - 4, 0, ZD + 6 + post_h / 2))
     leds = rounded_box(6, 150, 14, 2).translate((x + 6, 0, z + 25))
     return bracket.union(post).union(shelf).union(leds)
 

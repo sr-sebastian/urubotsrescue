@@ -25,7 +25,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "ros2_ws/src/carpincho_base"))
 from carpincho_base import protocol as P  # noqa: E402
 
-COUNTS_PER_M = 3780.1
+COUNTS_PER_M = 7140.2
 TRACK_SEP_EFF = 0.275 * 1.6
 
 
@@ -85,10 +85,12 @@ class FakeBase:
                 continue
             t_prev = now
             timeout = time.monotonic() - self.last_cmd > 0.3
+            if self.estop:
+                self.enabled = False      # igual que el firmware: el E-stop desarma
             can = self.enabled and not timeout and not self.estop
             for i in range(2):
                 target = self.sp[i] if can else 0.0
-                step = 1.5 * dt
+                step = 1.0 * dt
                 self.v[i] += max(-step, min(step, target - self.v[i]))
                 self.enc[i] += self.v[i] * dt * COUNTS_PER_M * (1 if i == 0 else -1)
             self.yaw += (self.v[1] - self.v[0]) / TRACK_SEP_EFF * dt

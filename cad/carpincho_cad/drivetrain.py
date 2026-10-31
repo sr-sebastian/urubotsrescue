@@ -94,25 +94,28 @@ def inner_pulley(teeth: int, bore: float, width: float = P.DRIVE_INNER_BELT_W + 
     return htd5_pulley(teeth, width, bore, flange=True, hub_d=P.htd5_od(teeth) * 0.7, hub_l=8)
 
 
-def motor_bracket(axis_h: float) -> cq.Workplane:
+def motor_bracket(axis_h: float, gear_d: float = P.GM42_D, pcd: float = P.GM42_BOLT_PCD,
+                  pilot: float = P.GM42_PILOT_D, bolt: float = 4.4) -> cq.Workplane:
     """Soporte de motorreductor 42 mm (PLA-CF 60%). Cara del motor en y=0..8 (local),
     el motor queda del lado -Y; el pie apoya en el piso a `axis_h` bajo el eje y tiene
     ranuras M5 de 12 mm en X para tensar la correa interna."""
     t = 8.0
     h = axis_h
-    plate = cq.Workplane("XZ").center(0, -h / 2 + 20).rect(70, h + 40).extrude(-t)
-    plate = plate.cut(cq.Workplane("XZ").circle(P.GM42_PILOT_D / 2 + 0.4).extrude(-t))
-    pcd = P.GM42_BOLT_PCD / 2
-    pts = [(pcd * math.cos(math.radians(a)), pcd * math.sin(math.radians(a))) for a in (45, 135, 225, 315)]
-    plate = plate.cut(cq.Workplane("XZ").pushPoints(pts).circle(2.2).extrude(-t))
-    foot = cq.Workplane("XY").box(70, 60, t).translate((0, -60 / 2 + t, -h + t / 2))
+    w = max(70.0, gear_d + 28)
+    top = gear_d / 2 + 6.0
+    plate = cq.Workplane("XZ").center(0, (top - h) / 2).rect(w, h + top).extrude(-t)
+    plate = plate.cut(cq.Workplane("XZ").circle(pilot / 2 + 0.4).extrude(-t))
+    r = pcd / 2
+    pts = [(r * math.cos(math.radians(a)), r * math.sin(math.radians(a))) for a in (45, 135, 225, 315)]
+    plate = plate.cut(cq.Workplane("XZ").pushPoints(pts).circle(bolt / 2).extrude(-t))
+    foot = cq.Workplane("XY").box(w, 60, t).translate((0, -60 / 2 + t, -h + t / 2))
     for x in (-24, 24):
         for y in (-12, -40):
             foot = foot.cut(cq.Workplane("XY").center(x, y).slot2D(12 + 5.5, 5.5, 0).extrude(t)
                             .translate((0, 0, -h)))
     rib = (cq.Workplane("YZ").polyline([(t, -h + t), (-50, -h + t), (t, -h + t + 0.8 * h)]).close()
            .extrude(5))
-    body = plate.union(foot).union(rib.translate((-35, 0, 0))).union(rib.translate((30, 0, 0)))
+    body = plate.union(foot).union(rib.translate((-w / 2, 0, 0))).union(rib.translate((w / 2 - 5, 0, 0)))
     return body
 
 
@@ -122,14 +125,15 @@ def drive_motor_bracket() -> cq.Workplane:
 
 
 def flipper_motor_bracket() -> cq.Workplane:
-    """DT-11: soporte del motor de flipper."""
-    return motor_bracket(FLIP_MOTOR_Z - (P.BODY_BOTTOM_Z + P.FLOOR_T))
+    """DT-11: soporte del motor de flipper (reductora de 56 mm, 4x M5)."""
+    return motor_bracket(FLIP_MOTOR_Z - (P.BODY_BOTTOM_Z + P.FLOOR_T), P.GM56_D, P.GM56_BOLT_PCD,
+                         P.GM56_PILOT_D, 5.5)
 
 
 def flip_big_pulley() -> cq.Workplane:
-    """DT-10: polea 54T sobre el tubo de flipper, fijada con pasador M5 pasante."""
+    """DT-10: polea 30T sobre el tubo de flipper, fijada con pasador M5 pasante."""
     p = htd5_pulley(P.FLIP_RED_BIG_T, P.DRIVE_INNER_BELT_W + 1, P.FLIP_TUBE_OD,
-                    hub_d=38, hub_l=14)
+                    hub_d=34, hub_l=14)
     zc = P.DRIVE_INNER_BELT_W + 1 + 2 * P.PULLEY_FLANGE_T + 7
     p = p.cut(cq.Workplane("YZ", origin=(-30, 0, zc)).circle(2.75).extrude(60))
     return p
@@ -139,15 +143,16 @@ def flip_big_pulley() -> cq.Workplane:
 # Referencias compradas (solo visual + masa)
 # ---------------------------------------------------------------------------
 
-def gearmotor_42() -> cq.Workplane:
-    """Motor 775 + reductora planetaria 42 mm + encoder (referencia). Eje en +Z."""
-    g = cq.Workplane("XY").circle(P.GM42_D / 2).extrude(P.GM42_GEAR_L)
+def gearmotor_42(gear_d: float = P.GM42_D, gear_l: float = P.GM42_GEAR_L,
+                 shaft_d: float = P.GM42_SHAFT_D) -> cq.Workplane:
+    """Motor 775 + reductora planetaria + encoder (referencia). Eje en +Z, cara de la reductora en z=gear_l."""
+    g = cq.Workplane("XY").circle(gear_d / 2).extrude(gear_l)
     m = (cq.Workplane("XY").circle(P.GM42_MOTOR_D / 2).extrude(P.GM42_MOTOR_L)
          .translate((0, 0, -P.GM42_MOTOR_L)))
     e = (cq.Workplane("XY").circle(P.GM42_MOTOR_D / 2 - 4).extrude(P.GM42_ENC_L)
          .translate((0, 0, -P.GM42_MOTOR_L - P.GM42_ENC_L)))
-    s = (cq.Workplane("XY").circle(P.GM42_SHAFT_D / 2).extrude(P.GM42_SHAFT_L)
-         .translate((0, 0, P.GM42_GEAR_L)))
+    s = (cq.Workplane("XY").circle(shaft_d / 2).extrude(P.GM42_SHAFT_L)
+         .translate((0, 0, gear_l)))
     return g.union(m).union(e).union(s)
 
 
@@ -259,7 +264,7 @@ INNER_PULLEY_W = P.DRIVE_INNER_BELT_W + 1 + 2 * P.PULLEY_FLANGE_T   # 20 mm
 DRIVE_MOTOR_Z = 85.0
 FLIP_MOTOR_Z = 110.0
 DRIVE_BELT_L = (300.0, 425.0)  # HTD 300-5M-15 (izq.) y 425-5M-15 (der.)
-FLIP_BELT_L = 425.0            # HTD 425-5M-15
+FLIP_BELT_L = 300.0            # HTD 300-5M-15
 
 
 def _motor_x(belt_len, t_small, t_big, x_axle, dz, sign):
@@ -310,13 +315,13 @@ def parts() -> list[Part]:
              "Impresión 3D PLA-CF 6 perímetros 60%", [
                  Placement((DRIVE_MOTOR_X[0], Y_MOTOR_FACE, DRIVE_MOTOR_Z), (0, 0, 0), tag="L"),
                  Placement((DRIVE_MOTOR_X[1], Y_MOTOR_FACE, DRIVE_MOTOR_Z), (0, 0, 0), mirror_y=True, tag="R")]),
-        Part("DT-09", "Polea 18T motor de flipper (HTD5M 15)", "flipper", lambda: inner_pulley(18, P.GM42_SHAFT_D),
-             "PLA-CF", "Impresión 3D o Al comercial 18-5M-15",
+        Part("DT-09", "Polea 14T motor de flipper (HTD5M 15)", "flipper", lambda: inner_pulley(14, P.GM56_SHAFT_D),
+             "Al", "Al comercial 14-5M-15 (14T impresa no aguanta), bore 12 + chavetero",
              [Placement((FLIP_MOTOR_X, Y_INNER_BELT_C - INNER_PULLEY_W / 2, FLIP_MOTOR_Z), ROT_Y, mirror_y=True)]),
-        Part("DT-10", "Polea 54T tubo de flipper (HTD5M 15)", "flipper", flip_big_pulley, "PLA-CF",
+        Part("DT-10", "Polea 30T tubo de flipper (HTD5M 15)", "flipper", flip_big_pulley, "PLA-CF",
              "Impresión 3D PLA-CF 6 perímetros 60%",
-             [Placement((X_FRONT, Y_INNER_BELT_C - INNER_PULLEY_W / 2, Z_AX), ROT_Y, mirror_y=True)],
-             notes="Pasador M5 pasante por el tubo (agujero ø5.2)."),
+             [Placement((X_FRONT, Y_INNER_BELT_C + INNER_PULLEY_W / 2, Z_AX), (90.0, 0.0, 0.0), mirror_y=True)],
+             notes="Cubo hacia el centro del robot. Pasador M5 pasante por el tubo (agujero ø5.2)."),
         Part("DT-11", "Soporte motor de flipper", "flipper", flipper_motor_bracket, "PLA-CF",
              "Impresión 3D PLA-CF 6 perímetros 60%",
              [Placement((FLIP_MOTOR_X, Y_MOTOR_FACE, FLIP_MOTOR_Z), (0, 0, 0), mirror_y=True)]),
@@ -326,8 +331,9 @@ def parts() -> list[Part]:
                           Placement((DRIVE_MOTOR_X[1], Y_MOTOR_FACE - P.GM42_GEAR_L, DRIVE_MOTOR_Z), ROT_Y,
                                     mirror_y=True, tag="R")],
              export=False, bought=True),
-        Part("REF-M2", "Motorreductor 775 24V planetario 42mm (flipper)", "referencia", gearmotor_42, "motor",
-             "Comprado", [Placement((FLIP_MOTOR_X, Y_MOTOR_FACE - P.GM42_GEAR_L, FLIP_MOTOR_Z), ROT_Y, mirror_y=True)],
+        Part("REF-M2", "Motorreductor 775 24V planetario 56mm 1:264 (flipper)", "referencia",
+             lambda: gearmotor_42(P.GM56_D, P.GM56_GEAR_L, P.GM56_SHAFT_D), "motor",
+             "Comprado", [Placement((FLIP_MOTOR_X, Y_MOTOR_FACE - P.GM56_GEAR_L, FLIP_MOTOR_Z), ROT_Y, mirror_y=True)],
              export=False, bought=True),
         Part("REF-B1", "Correa HTD 1100-5M-25 (oruga)", "traccion", main_belt, "belt", "Comprado",
              lr((0, track_y, 0), (0, 0, 0)), export=False, bought=True),
